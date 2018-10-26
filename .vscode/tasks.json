@@ -8,7 +8,8 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g", "main.cpp"
+                "-g", "main.cpp" ,"-L./external/lib" ,"-I./external/include" ,
+                "-lsfml-graphics" ,"-lsfml-window" ,"-lsfml-system"
             ],
             "group": {
                 "kind": "build",
