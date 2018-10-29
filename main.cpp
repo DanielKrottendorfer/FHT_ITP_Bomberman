@@ -4,7 +4,8 @@ int main()
 {
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
-
+    sf::CircleShape shape(300.f);
+    shape.setFillColor(sf::Color::Green);
     // run the program as long as the window is open
     while (window.isOpen())
     {
@@ -21,7 +22,7 @@ int main()
         window.clear(sf::Color::Black);
 
         // draw everything here...
-        // window.draw(...);
+        window.draw(shape);
 
         // end the current frame
         window.display();
