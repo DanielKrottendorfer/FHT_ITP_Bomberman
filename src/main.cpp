@@ -1,32 +1,21 @@
-#include <SFML/Graphics.hpp>
 
-int main()
-{
-    // create the window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
-    sf::CircleShape shape(300.f);
-    shape.setFillColor(sf::Color::Green);
-    // run the program as long as the window is open
-    while (window.isOpen())
-    {
-        // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+#include <string>
+#include <iostream>
 
-        // clear the window with black color
-        window.clear(sf::Color::Black);
+#include ".\engine\GameEngine.h"
+#include "Bomberman.h"
 
-        // draw everything here...
-        window.draw(shape);
+int main(){
 
-        // end the current frame
-        window.display();
-    }
 
-    return 0;
+    //std::cout << "gameLogic" << std::endl;
+    IGameLogic* gameLogic = new Bomberman();
+
+    //std::cout << "gameEngine" << std::endl;
+
+    GameEngine* gameEng = new GameEngine("Bomberman++", 800 , 500, gameLogic);
+
+    gameEng->start();
+
+    //std::cout << "end" << std::endl;
 }
