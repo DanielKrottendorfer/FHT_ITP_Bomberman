@@ -13,7 +13,7 @@ int main(){
 
     //std::cout << "gameEngine" << std::endl;
 
-    GameEngine* gameEng = new GameEngine("Bomberman++", 800 , 500, gameLogic);
+    GameEngine* gameEng = new GameEngine("Bomberman++", 1344 , 704, gameLogic);
 
     gameEng->start();
 
