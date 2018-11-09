@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "Bomberman.h"
-#include "obj/GameItem.h"
+
+#include "objects/GameItem.h"
 
 Bomberman::Bomberman(){}
 
@@ -18,11 +19,8 @@ void Bomberman::init(){
     std::cout << "push" << std::endl;
 
     gameItems.push_back(gi);
-
 }
 void Bomberman::input(){
-
-
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
         gameItems[0].y=(gameItems[0].y-1);
@@ -42,24 +40,19 @@ void Bomberman::input(){
 }
 
 void Bomberman::update(){
-
     for(GameItem s : gameItems){
         s.sprite->setPosition(s.x,s.y);
     }
-
 }
+
 void Bomberman::render(sf::RenderWindow* window){
     //std::cout << "render" << std::endl;
-
-    window->clear(sf::Color::Blue);
+	sf::Color backgroundColor (41, 174, 74);
+    window->clear(backgroundColor);
 
     for(GameItem s : gameItems){
         window->draw(*s.sprite);
-
     }
 }
 
-
-Bomberman::~Bomberman(){
-
-}
+Bomberman::~Bomberman(){}

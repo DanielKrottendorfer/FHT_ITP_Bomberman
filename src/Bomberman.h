@@ -1,8 +1,8 @@
 #include <vector>
 #include <algorithm>
 
-#include ".\obj\GameItem.h"
 #include ".\engine\IGameLogic.h"
+#include "objects/GameItem.h"
 
 class Bomberman : public IGameLogic{
 
@@ -13,7 +13,7 @@ class Bomberman : public IGameLogic{
         void input();
         void update();
         void render(sf::RenderWindow* window);
-        ~Bomberman();
+        virtual ~Bomberman();
 
 
     private:
