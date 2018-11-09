@@ -8,8 +8,16 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g", "./src/main.cpp" ,"./src/engine/GameEngine.cpp" ,"./src/Bomberman.cpp" ,"./src/obj/GameItem.cpp" ,"-L./external/lib" ,"-I./external/include" ,
-                "-lsfml-graphics" ,"-lsfml-window" ,"-lsfml-system"
+                "-g", 
+				"./src/main.cpp",
+				"./src/engine/GameEngine.cpp",
+				"./src/Bomberman.cpp",
+				"./src/objects/GameItem.cpp",
+				"./src/objects/battlefield/BattleField.cpp",
+				"./src/objects/blocks/BuildingBlock.cpp",
+				"-L./external/lib",
+				"-I./external/include",
+                "-lsfml-graphics", "-lsfml-window", "-lsfml-system"
             ],
             "group": {
                 "kind": "build",

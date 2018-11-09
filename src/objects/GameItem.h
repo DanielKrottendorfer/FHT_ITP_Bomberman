@@ -3,17 +3,16 @@
 
 #ifndef GAMEITEM_H
 #define GAMEITEM_H
-class GameItem{
+class GameItem
+{
 
-    public:
+	public:
+		GameItem (std::string texurePath, int x, int y);
 
-        GameItem(std::string texurePath,int x,int y);
+		sf::Texture* texture;
+		sf::Sprite* sprite;
 
-        sf::Texture* texture;
-        sf::Sprite* sprite;
-
-        int x = 0;
-        int y = 0;
-
+		int x = 0;
+		int y = 0;
 };
 #endif

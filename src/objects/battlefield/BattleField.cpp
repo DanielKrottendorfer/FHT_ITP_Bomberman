@@ -1,13 +1,13 @@
+#include <iostream>
 #include "BattleField.h"
 
 BattleField::BattleField ()
 {
-	// TODO Auto-generated constructor stub
-
+	std::cout << "Loaded Battle field" << std::endl;
 }
 
 BattleField::~BattleField ()
 {
-	// TODO Auto-generated destructor stub
+
 }
 

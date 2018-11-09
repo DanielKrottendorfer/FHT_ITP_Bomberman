@@ -3,20 +3,19 @@
 #include <string>
 #include <iostream>
 
+GameItem::GameItem (std::string texturePath, int x, int y)
+{
+	this->x = x;
+	this->y = y;
 
-GameItem::GameItem(std::string texturePath,int x,int y){
+	texture = new sf::Texture;
+	sprite = new sf::Sprite;
 
-    this->x=x;
-    this->y=y;
+	if (!texture->loadFromFile (texturePath))
+	{
+		std::cout << "Nicht geladen" << std::endl;
+	}
 
-    texture = new sf::Texture;
-    sprite = new sf::Sprite;
-
-    if(!texture->loadFromFile("res/toad.png")){
-        std::cout << "Nicht geladen" << std::endl;
-    }
-
-    sprite->setTexture(*texture);
-    sprite->setPosition(x,y);
-
+	sprite->setTexture (*texture);
+	sprite->setPosition (x, y);
 }
