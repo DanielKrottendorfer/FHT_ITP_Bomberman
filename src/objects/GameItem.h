@@ -11,8 +11,5 @@ class GameItem
 
 		sf::Texture* texture;
 		sf::Sprite* sprite;
-
-		int x = 0;
-		int y = 0;
 };
 #endif

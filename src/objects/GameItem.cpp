@@ -5,9 +5,6 @@
 
 GameItem::GameItem (std::string texturePath, int x, int y)
 {
-	this->x = x;
-	this->y = y;
-
 	texture = new sf::Texture;
 	sprite = new sf::Sprite;
 
