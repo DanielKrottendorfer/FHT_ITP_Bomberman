@@ -5,14 +5,23 @@
 
 GameItem::GameItem (std::string texturePath, int x, int y)
 {
-	texture = new sf::Texture;
-	sprite = new sf::Sprite;
+	this->texture = new sf::Texture;
+	this->sprite = new sf::Sprite;
 
 	if (!texture->loadFromFile (texturePath))
 	{
 		std::cout << "Nicht geladen" << std::endl;
 	}
 
-	sprite->setTexture (*texture);
-	sprite->setPosition (x, y);
+	this->sprite->setTexture (*texture);
+	this->sprite->setPosition (x, y);
+}
+
+GameItem::GameItem (sf::Texture *texture, int x, int y)
+{
+	this->texture = new sf::Texture;
+	this->sprite = new sf::Sprite;
+
+	this->sprite->setTexture (*texture);
+	this->sprite->setPosition (x, y);
 }
