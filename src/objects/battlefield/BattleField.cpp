@@ -154,16 +154,15 @@ void BattleField::generateDestructibleFieldBlocks ()
 	std::uniform_int_distribution<> rangeX (1, NUMBER_OF_HORIZONTAL_BLOCKS - 2);
 	std::uniform_int_distribution<> rangeY (1, NUMBER_OF_VERTICAL_BLOCKS - 2);
 	int i = 0;
-	while (i != 50)
+	while (i != NUMBER_OF_BLOCKS_TO_DESTROY)
 	{
 		int randomPositionX = rangeX (eng);
 		int randomPositionY = rangeY (eng);
 		if (isPositionAvailable (randomPositionX, randomPositionY) == true)
 		{
 			BuildingBlock destructiveBlock ("res/BackgroundItems/destructibleBlocks.png",
-					randomPositionX * BLOCK_SIZE, randomPositionY * BLOCK_SIZE, false);
+					randomPositionX * BLOCK_SIZE, randomPositionY * BLOCK_SIZE, true);
 			inDestructibleBlocks.push_back (destructiveBlock);
-			std::cout << i << std::endl;
 			i++;
 		}
 		else

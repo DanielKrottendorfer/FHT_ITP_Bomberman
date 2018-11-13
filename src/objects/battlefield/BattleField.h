@@ -20,6 +20,7 @@ class BattleField
 	public:
 		static const int NUMBER_OF_HORIZONTAL_BLOCKS = 15;
 		static const int NUMBER_OF_VERTICAL_BLOCKS = 11;
+		static const int NUMBER_OF_BLOCKS_TO_DESTROY = 50;
 		static const int BLOCK_SIZE = 64;
 
 		BattleField ();
