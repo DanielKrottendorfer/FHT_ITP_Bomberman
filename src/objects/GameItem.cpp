@@ -27,5 +27,6 @@ GameItem::GameItem (sf::Texture *texture, int x, int y)
 }
 
 GameItem::~GameItem(){
-	delete texture,sprite;
+	delete texture;
+	delete sprite;
 }
