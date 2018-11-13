@@ -4,19 +4,7 @@
 #include <iostream>
 #include <string>
 
-/*
-BuildingBlock::BuildingBlock (sf::Texture* buildingBlockTexture,
-		bool isDestructible)
-{
-	
-	this->buildingBlockTexture = buildingBlockTexture;
-	this->isDestructible = isDestructible;
-}
-*/
-
-
-
-BuildingBlock::BuildingBlock (std::string texturePath, int x, int y,bool isDestructible)
+BuildingBlock::BuildingBlock (std::string texturePath, int x, int y, bool isDestructible)
 {
 	this->texture = new sf::Texture;
 	this->sprite = new sf::Sprite;
@@ -31,8 +19,7 @@ BuildingBlock::BuildingBlock (std::string texturePath, int x, int y,bool isDestr
 	this->isDestructible = isDestructible;
 }
 
-
-BuildingBlock::BuildingBlock (sf::Texture *texure, int x, int y,bool isDestructible)
+BuildingBlock::BuildingBlock (sf::Texture *texure, int x, int y, bool isDestructible)
 {
 	this->texture = new sf::Texture;
 	this->sprite = new sf::Sprite;
@@ -42,7 +29,7 @@ BuildingBlock::BuildingBlock (sf::Texture *texure, int x, int y,bool isDestructi
 	this->isDestructible = isDestructible;
 }
 
-BuildingBlock::~BuildingBlock()
+BuildingBlock::~BuildingBlock ()
 {
 }
 
