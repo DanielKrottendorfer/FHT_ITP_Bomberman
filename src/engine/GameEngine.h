@@ -13,6 +13,9 @@ class GameEngine {
 
         GameEngine(std::string windowTitle, int width, int height, IGameLogic* gameLogic);
 
+        
+        const int UPS = 60;
+
     private:
         void input();
         void update();

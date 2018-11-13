@@ -6,12 +6,7 @@
 
 #include "GameEngine.h"
 
-
-sf::RenderWindow* window;
-IGameLogic* gameLogic;
-
 // Updates per second
-const int UPS = 60;
 
 GameEngine::GameEngine(std::string windowTitle, int width, int height, IGameLogic* gameLogic){
     window = new sf::RenderWindow(sf::VideoMode(width, height), windowTitle);
@@ -42,9 +37,13 @@ void GameEngine::gameLoop(){
             
         }
 
+        //std::cout << "input" << std::endl;
         input();
+        //std::cout << "update" << std::endl;
         update();
+        //std::cout << "render" << std::endl;
         render();
+        //std::cout << "sleep" << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(1000/UPS));
             
         //std::cout << loopC << std::endl;
@@ -64,7 +63,9 @@ void GameEngine::update(){
 
 
 void GameEngine::start(){
+    std::cout << "gameEngine Init" << std::endl;
     init();
+    std::cout << "gameEngine GameLoop" << std::endl;
     gameLoop();
 }
 

@@ -1,4 +1,5 @@
 #include <vector>
+#include <SFML/Graphics.hpp>
 #include "..\blocks\BuildingBlock.h"
 
 #ifndef SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_
@@ -7,7 +8,15 @@
 class BattleField
 {
 	private:
-		std::vector<std::vector<BuildingBlock>> battleField2D;
+		//std::vector<GameItem*> battleField2D;
+		std::vector<BuildingBlock> inDestructibleBlocks;
+		std::vector<sf::Texture*> battleFieldTextures;
+		static const int NUMBER_OF_HORIZONTAL_BLOCKS = 15;
+		static const int NUMBER_OF_VERTICAL_BLOCKS = 11;
+
+		
+		void createBattleField ();
+		/*
 		void createBattleField ()
 		{
 			// TODO Stefan - to be continued, code refactoring
@@ -26,19 +35,20 @@ class BattleField
 			}
 			this->battleField2D.push_back (firstFieldRow);
 		}
-
+	*/
 	public:
-		static const int NUMBER_OF_HORIZONTAL_BLOCKS = 15;
-		static const int NUMBER_OF_VERTICAL_BLOCKS = 11;
 
 		BattleField ();
 		virtual ~BattleField ();
 
+		void draw(sf::RenderWindow *window);
+		/*
 		std::vector<BuildingBlock> generateBattleField ()
 		{
 			// not 0 - only for test
 			return this->battleField2D.at (0);
 		}
+		*/
 };
 
 #endif /* SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_ */

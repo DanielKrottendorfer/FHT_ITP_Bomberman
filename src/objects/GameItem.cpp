@@ -1,4 +1,4 @@
-#include "../objects/GameItem.h"
+#include "GameItem.h"
 
 #include <string>
 #include <iostream>
@@ -24,4 +24,8 @@ GameItem::GameItem (sf::Texture *texture, int x, int y)
 
 	this->sprite->setTexture (*texture);
 	this->sprite->setPosition (x, y);
+}
+
+GameItem::~GameItem(){
+	delete texture,sprite;
 }

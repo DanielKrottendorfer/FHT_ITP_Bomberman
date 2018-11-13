@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef GAMELOGIC_H
+#define GAMELOGIC_H
 class IGameLogic {
     public:
         virtual void init() = 0;

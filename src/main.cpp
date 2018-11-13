@@ -8,14 +8,18 @@
 int main(){
 
 
-    //std::cout << "gameLogic" << std::endl;
+    std::cout << "gameLogic" << std::endl;
+    
     IGameLogic* gameLogic = new Bomberman();
 
-    //std::cout << "gameEngine" << std::endl;
+    std::cout << "gameEngine" << std::endl;
 
     GameEngine* gameEng = new GameEngine("Bomberman++", 1280 , 704, gameLogic);
 
+    
+    std::cout << "start" << std::endl;
+
     gameEng->start();
 
-    //std::cout << "end" << std::endl;
+    std::cout << "end" << std::endl;
 }
