@@ -37,26 +37,9 @@ void BattleField::createBattleField ()
 	createIndestructibleFieldBlocks ();
 	generateDestructibleFieldBlocks ();
 
-	// ADDING FIGURE -> only for testing - to be later deleted - this actually needs to be instance of another class
-	//*******************************************************************************
-	BuildingBlock figure1 ("res/test-figure.png", BLOCK_SIZE, BLOCK_SIZE, false);
-	inDestructibleBlocks.push_back (figure1);
+	generatePlayer (); // temp function initialisation
 
-	BuildingBlock figure2 ("res/test-figure.png", (NUMBER_OF_HORIZONTAL_BLOCKS - 2) * BLOCK_SIZE,
-			BLOCK_SIZE, false);
-	inDestructibleBlocks.push_back (figure2);
-
-	BuildingBlock figure3 ("res/test-figure.png", BLOCK_SIZE,
-			(NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE, false);
-	inDestructibleBlocks.push_back (figure3);
-
-	BuildingBlock figure4 ("res/test-figure.png", (NUMBER_OF_HORIZONTAL_BLOCKS - 2) * BLOCK_SIZE,
-			(NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE, false);
-	inDestructibleBlocks.push_back (figure4);
-
-	//*******************************************************************************
-
-	for (BuildingBlock b : inDestructibleBlocks)
+	for (BuildingBlock b : battlefieldBlocks)
 	{
 		sf::Vector2f v = b.sprite->getPosition ();
 		std::cout << "x: " << v.x << "; y: " << v.y << "; textaddress:" << b.texture << std::endl;
@@ -77,12 +60,12 @@ void BattleField::createFrameBlocks ()
 				false);
 		//std::cout << i << std::endl;
 
-		inDestructibleBlocks.push_back (leftEdge);
-		//std::cout << &inDestructibleBlocks[inDestructibleBlocks.size()-1] << std::endl;
+		battlefieldBlocks.push_back (leftEdge);
+		//std::cout << &battlefieldBlocks[battlefieldBlocks.size()-1] << std::endl;
 		//std::cout << i << std::endl;
 		//std::cout << "end" << std::endl;
 
-		//battleField2D.push_back(&inDestructibleBlocks[inDestructibleBlocks.size()-1]);
+		//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 	}
 
 	std::cout << "end" << std::endl;
@@ -93,45 +76,45 @@ void BattleField::createFrameBlocks ()
 				xStart + (NUMBER_OF_HORIZONTAL_BLOCKS - 1) * BLOCK_SIZE, yStart + i * BLOCK_SIZE,
 				false);
 
-		inDestructibleBlocks.push_back (rightEdge);
-		//battleField2D.push_back(&inDestructibleBlocks[inDestructibleBlocks.size()-1]);
+		battlefieldBlocks.push_back (rightEdge);
+		//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 	}
 
 	for (int i = 1; i < NUMBER_OF_HORIZONTAL_BLOCKS - 1; i++)
 	{
 		BuildingBlock topEdge ("res/BackgroundItems/topEdge.png", xStart + i * BLOCK_SIZE, yStart,
 				false);
-		inDestructibleBlocks.push_back (topEdge);
-		//battleField2D.push_back(&inDestructibleBlocks[inDestructibleBlocks.size()-1]);
+		battlefieldBlocks.push_back (topEdge);
+		//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 	}
 
 	for (int i = 1; i < NUMBER_OF_HORIZONTAL_BLOCKS - 1; i++)
 	{
 		BuildingBlock bottomEdge ("res/BackgroundItems/bottomEdge.png", xStart + i * BLOCK_SIZE,
 				yStart + BLOCK_SIZE * (NUMBER_OF_VERTICAL_BLOCKS - 1), false);
-		inDestructibleBlocks.push_back (bottomEdge);
-		//battleField2D.push_back(&inDestructibleBlocks[inDestructibleBlocks.size()-1]);
+		battlefieldBlocks.push_back (bottomEdge);
+		//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 	}
 
 	BuildingBlock leftTopCorner ("res/BackgroundItems/leftTopCorner.png", xStart, yStart, false);
-	inDestructibleBlocks.push_back (leftTopCorner);
-	//battleField2D.push_back(&inDestructibleBlocks[inDestructibleBlocks.size()-1]);
+	battlefieldBlocks.push_back (leftTopCorner);
+	//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 
 	BuildingBlock rightTopCorner ("res/BackgroundItems/rightTopCorner.png",
 			xStart + BLOCK_SIZE * (NUMBER_OF_HORIZONTAL_BLOCKS - 1), yStart, false);
-	inDestructibleBlocks.push_back (rightTopCorner);
-	//battleField2D.push_back(&inDestructibleBlocks[inDestructibleBlocks.size()-1]);
+	battlefieldBlocks.push_back (rightTopCorner);
+	//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 
 	BuildingBlock leftBottomCorner ("res/BackgroundItems/leftBottomCorner.png", xStart,
 			yStart + BLOCK_SIZE * (NUMBER_OF_VERTICAL_BLOCKS - 1), false);
-	inDestructibleBlocks.push_back (leftBottomCorner);
-	//battleField2D.push_back(&inDestructibleBlocks[inDestructibleBlocks.size()-1]);
+	battlefieldBlocks.push_back (leftBottomCorner);
+	//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 
 	BuildingBlock rightBottomCorner ("res/BackgroundItems/rightBottomCorner.png",
 			xStart + BLOCK_SIZE * (NUMBER_OF_HORIZONTAL_BLOCKS - 1),
 			yStart + BLOCK_SIZE * (NUMBER_OF_VERTICAL_BLOCKS - 1), false);
-	inDestructibleBlocks.push_back (rightBottomCorner);
-	//battleField2D.push_back(&inDestructibleBlocks[inDestructibleBlocks.size()-1]);
+	battlefieldBlocks.push_back (rightBottomCorner);
+	//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 }
 
 void BattleField::createIndestructibleFieldBlocks ()
@@ -142,7 +125,7 @@ void BattleField::createIndestructibleFieldBlocks ()
 		{
 			BuildingBlock indestructBlock ("res/BackgroundItems/indestructibleBlocks.png",
 					i * BLOCK_SIZE, j * BLOCK_SIZE, false);
-			inDestructibleBlocks.push_back (indestructBlock);
+			battlefieldBlocks.push_back (indestructBlock);
 		}
 	}
 }
@@ -162,7 +145,7 @@ void BattleField::generateDestructibleFieldBlocks ()
 		{
 			BuildingBlock destructiveBlock ("res/BackgroundItems/destructibleBlocks.png",
 					randomPositionX * BLOCK_SIZE, randomPositionY * BLOCK_SIZE, true);
-			inDestructibleBlocks.push_back (destructiveBlock);
+			battlefieldBlocks.push_back (destructiveBlock);
 			i++;
 		}
 		else
@@ -174,7 +157,7 @@ void BattleField::generateDestructibleFieldBlocks ()
 
 bool BattleField::isPositionAvailable (int xPos, int yPos)
 {
-	for (BuildingBlock block : inDestructibleBlocks)
+	for (BuildingBlock block : battlefieldBlocks)
 	{
 		sf::Vector2f position = block.sprite->getPosition ();
 		bool isPositionOnRedCorners = checkRedCorners (xPos, yPos);
@@ -237,12 +220,22 @@ bool BattleField::checkRedCorners (int xPos, int yPos)
 	return true;
 }
 
+void BattleField::generatePlayer ()
+{
+	Player player ("res/Character/Char1_front.png", BLOCK_SIZE, BLOCK_SIZE);
+	battlefieldPlayers.push_back (player);
+}
+
 void BattleField::draw (sf::RenderWindow *window)
 {
-	//std::cout << "render" << std::endl;
-	for (BuildingBlock b : inDestructibleBlocks)
+	for (BuildingBlock buildingBlock : battlefieldBlocks)
 	{
-		window->draw (*b.sprite);
+		window->draw (*buildingBlock.sprite);
+	}
+
+	for (Player player : battlefieldPlayers)
+	{
+		window->draw (*player.sprite);
 	}
 }
 

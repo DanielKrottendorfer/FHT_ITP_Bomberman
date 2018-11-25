@@ -9,36 +9,28 @@
 #include "objects/battlefield/BattleField.h"
 #include "objects/blocks/BuildingBlock.h"
 
-Bomberman::Bomberman()
+Bomberman::Bomberman ()
 {
 }
 
-void Bomberman::init()
+void Bomberman::init ()
 {
-	battlefield = new BattleField();
+	battlefield = new BattleField ();
+	player = battlefield->battlefieldPlayers.at (0); // 0 only for movement prototype
 }
 
-void Bomberman::input()
+void Bomberman::input ()
+{
+	// TODO Also needs to be updated for joystick
+	player.setEventType ();
+}
+
+void Bomberman::update ()
 {
 }
 
-void Bomberman::update()
+void Bomberman::render (sf::RenderWindow *window)
 {
+	window->clear(sf::Color::Black);
+	battlefield->draw (window);
 }
-
-void Bomberman::render(sf::RenderWindow *window)
-{
-	//std::cout << "render" << std::endl;
-	
-	battlefield->draw(window);
-
-	//    BattleField bf;
-	//    std::vector<BuildingBlock> firstRow = bf.generateBattleField();
-	//    for (BuildingBlock bb : firstRow)
-	//    {
-	//    	sf::Sprite sp;
-	//    	sp.setTexture(bb.getBuildingBlock());
-	//    	window->draw(sp);
-	//    }
-}
-

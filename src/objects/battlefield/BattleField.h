@@ -1,6 +1,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "..\blocks\BuildingBlock.h"
+#include "../blocks/BuildingBlock.h"
+#include "../player/Player.h"
 
 #ifndef SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_
 #define SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_
@@ -8,8 +9,9 @@
 class BattleField
 {
 	private:
-		std::vector<BuildingBlock> inDestructibleBlocks;
+		std::vector<BuildingBlock> battlefieldBlocks;
 		std::vector<sf::Texture*> battleFieldTextures;
+
 		void createBattleField ();
 		void createFrameBlocks ();
 		void createIndestructibleFieldBlocks ();
@@ -23,9 +25,12 @@ class BattleField
 		static const int NUMBER_OF_BLOCKS_TO_DESTROY = 50;
 		static const int BLOCK_SIZE = 64;
 
+		std::vector<Player> battlefieldPlayers;
+
 		BattleField ();
 		virtual ~BattleField ();
 		void draw (sf::RenderWindow *window);
+		void generatePlayer ();
 };
 
 #endif /* SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_ */

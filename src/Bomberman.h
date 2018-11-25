@@ -4,11 +4,11 @@
 #include ".\engine\IGameLogic.h"
 #include "objects\GameItem.h"
 #include ".\objects\battlefield\Battlefield.h"
+#include ".\objects\player\Player.h"
 
 class Bomberman : public IGameLogic{
 
     public:
-
         Bomberman();
         void init();
         void input();
@@ -17,8 +17,8 @@ class Bomberman : public IGameLogic{
 
 
     private:
-
         BattleField* battlefield;
+        Player player;
         std::vector<GameItem> backGroundItems;
         std::vector<sf::Texture> backGroundTextures;
         std::vector<GameItem> gameItems;
