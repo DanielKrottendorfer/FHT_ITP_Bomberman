@@ -18,6 +18,7 @@ class BattleField
 		void generateDestructibleFieldBlocks ();
 		bool isPositionAvailable (int, int);
 		bool checkRedCorners (int, int);
+		bool checkOverlapping (std::string, float, float);
 
 	public:
 		static const int NUMBER_OF_HORIZONTAL_BLOCKS = 15;
@@ -31,6 +32,7 @@ class BattleField
 		virtual ~BattleField ();
 		void draw (sf::RenderWindow *window);
 		void generatePlayer ();
+		void procedeMove (Player*);
 };
 
 #endif /* SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_ */

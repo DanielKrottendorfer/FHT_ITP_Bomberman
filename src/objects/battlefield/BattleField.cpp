@@ -226,6 +226,74 @@ void BattleField::generatePlayer ()
 	battlefieldPlayers.push_back (player);
 }
 
+bool BattleField::checkOverlapping (std::string movingDirection, float playerPosX, float playerPosY)
+{
+	for (BuildingBlock block : battlefieldBlocks)
+	{
+		sf::Vector2f blockPosition = block.sprite->getPosition ();
+		if (movingDirection.compare ("up") == 0)
+		{
+//			if (blockPosition.y == playerPosY - BLOCK_SIZE)
+//			{
+//				return false;
+//			}
+		}
+		else if (movingDirection.compare ("left") == 0)
+		{
+//			if (blockPosition.x == playerPosX - BLOCK_SIZE || blockPosition.y == playerPosY)
+//			{
+//				return false;
+//			}
+		}
+		else if (movingDirection.compare ("down") == 0)
+		{
+//			if (blockPosition.y == playerPosY + BLOCK_SIZE)
+//			{
+//				return false;
+//			}
+		}
+		else if (movingDirection.compare ("right") == 0)
+		{
+//			if (blockPosition.x == playerPosX + BLOCK_SIZE)
+//			{
+//				return false;
+//			}
+
+		}
+	}
+	return true;
+}
+
+void BattleField::procedeMove (Player* player)
+{
+	float playerPositionX = player->sprite->getPosition ().x;
+	float playerPositionY = player->sprite->getPosition ().y;
+
+	std::string movingDirection = "";
+	if (sf::Keyboard::isKeyPressed (sf::Keyboard::W))
+	{
+		movingDirection = "up";
+	}
+	else if (sf::Keyboard::isKeyPressed (sf::Keyboard::A))
+	{
+		movingDirection = "left";
+	}
+	else if (sf::Keyboard::isKeyPressed (sf::Keyboard::S))
+	{
+		movingDirection = "down";
+	}
+	else if (sf::Keyboard::isKeyPressed (sf::Keyboard::D))
+	{
+		movingDirection = "right";
+	}
+
+	// Check is possible to go in some direction
+	if (this->checkOverlapping (movingDirection, playerPositionX, playerPositionY) == true)
+	{
+		player->movePlayer (movingDirection);
+	}
+}
+
 void BattleField::draw (sf::RenderWindow *window)
 {
 	for (BuildingBlock buildingBlock : battlefieldBlocks)

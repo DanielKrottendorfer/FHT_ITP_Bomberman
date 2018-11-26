@@ -22,7 +22,7 @@ void Bomberman::init ()
 void Bomberman::input ()
 {
 	// TODO Also needs to be updated for joystick
-	player.setEventType ();
+	battlefield->procedeMove (&player);
 }
 
 void Bomberman::update ()
@@ -31,6 +31,6 @@ void Bomberman::update ()
 
 void Bomberman::render (sf::RenderWindow *window)
 {
-	window->clear(sf::Color::Black);
+	window->clear (sf::Color::Black);
 	battlefield->draw (window);
 }

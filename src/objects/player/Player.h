@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <string.h>
 #include "../GameItem.h"
 
 #ifndef SRC_OBJECTS_PLAYER_PLAYER_H_
@@ -6,9 +7,6 @@
 
 class Player
 {
-	private:
-		void movePlayer (float, float);
-
 	public:
 		Player ();
 		Player (std::string texurePath, int x, int y);
@@ -18,7 +16,7 @@ class Player
 		sf::Texture* texture;
 		sf::Sprite* sprite;
 
-		void setEventType ();
+		void movePlayer (std::string);
 };
 
 #endif /* SRC_OBJECTS_PLAYER_PLAYER_H_ */

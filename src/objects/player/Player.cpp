@@ -31,28 +31,23 @@ Player::Player (sf::Texture *texure, int x, int y)
 	this->sprite->setPosition (x, y);
 }
 
-void Player::movePlayer (float x, float y)
+void Player::movePlayer (std::string direction)
 {
-	this->sprite->move (x, y);
-}
-
-void Player::setEventType ()
-{
-	if (sf::Keyboard::isKeyPressed (sf::Keyboard::W))
+	if (direction.compare ("up") == 0)
 	{
-		movePlayer (0.f, -2.f);
+		this->sprite->move (0.f, -1.f);
 	}
-	else if (sf::Keyboard::isKeyPressed (sf::Keyboard::A))
+	else if (direction.compare ("left") == 0)
 	{
-		movePlayer (-2.f, 0.f);
+		this->sprite->move (-1.f, 0.f);
 	}
-	else if (sf::Keyboard::isKeyPressed (sf::Keyboard::S))
+	else if (direction.compare ("down") == 0)
 	{
-		movePlayer (0.f, 2.f);
+		this->sprite->move (0.f, 1.f);
 	}
-	else if (sf::Keyboard::isKeyPressed (sf::Keyboard::D))
+	else if (direction.compare ("right") == 0)
 	{
-		movePlayer (2.f, 0.f);
+		this->sprite->move (1.f, 0.f);
 	}
 }
 
