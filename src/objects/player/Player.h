@@ -8,6 +8,8 @@
 class Player
 {
 	public:
+		bool spaceIsPressed =false;
+
 		Player ();
 		Player (std::string texurePath, int x, int y);
 		Player (sf::Texture* texure, int x, int y);

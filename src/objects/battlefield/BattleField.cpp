@@ -287,11 +287,78 @@ void BattleField::procedeMove (Player* player)
 		movingDirection = "right";
 	}
 
+	if( sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+
+		sf::Vector2f v = sf::Vector2f(playerPositionX,playerPositionY);
+
+		addBomb(v);
+
+
+	}
 	// Check is possible to go in some direction
+	
 	if (this->checkOverlapping (movingDirection, playerPositionX, playerPositionY) == true)
 	{
 		player->movePlayer (movingDirection);
 	}
+
+
+}
+
+void BattleField::addBomb(sf::Vector2f v)
+{
+
+	v.x+=BLOCK_SIZE/2;
+	v.y+=BLOCK_SIZE/2;
+
+	v = getRasterPoint(v);
+
+
+	Bomb* b = new Bomb("res/Bomb.png",v.x,v.y);
+
+	b->ignite();
+
+
+	battlefieldBombs.push_back(b);
+
+
+}
+
+void BattleField::checkForExplosion()
+{
+	
+	for(int i=0 ; i<battlefieldBombs.size() ; i++)
+	{
+		
+		if(battlefieldBombs[i]->explodes())
+		{
+			delete(battlefieldBombs[i]);
+			battlefieldBombs.erase (battlefieldBombs.begin()+i);
+		}
+		
+	}
+	
+}
+
+sf::Vector2f BattleField::getRasterPoint(sf::Vector2f v)
+{
+
+	int x = v.x;
+	int y = v.y;
+
+	x/=BLOCK_SIZE;
+	y/=BLOCK_SIZE;
+
+	x*=BLOCK_SIZE;
+	y*=BLOCK_SIZE;
+
+	sf::Vector2f h(x,y);
+
+
+	return h;
+	
+
 }
 
 void BattleField::draw (sf::RenderWindow *window)
@@ -301,10 +368,16 @@ void BattleField::draw (sf::RenderWindow *window)
 		window->draw (*buildingBlock.sprite);
 	}
 
+	for(Bomb* bomb : battlefieldBombs)
+	{
+		window->draw (*bomb->sprite);
+	}
+
 	for (Player player : battlefieldPlayers)
 	{
 		window->draw (*player.sprite);
 	}
+
 }
 
 BattleField::~BattleField ()

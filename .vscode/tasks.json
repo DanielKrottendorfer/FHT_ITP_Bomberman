@@ -15,7 +15,8 @@
 				"./src/objects/GameItem.cpp",
 				"./src/objects/battlefield/BattleField.cpp",
 				"./src/objects/blocks/BuildingBlock.cpp",
-				"./src/objects/player/Player.cpp",
+                "./src/objects/player/Player.cpp",
+                "./src/objects/bombs/Bomb.cpp",
 				"-L./external/lib",
 				"-I./external/include",
                 "-lsfml-graphics", "-lsfml-window", "-lsfml-system"

@@ -27,6 +27,7 @@ void Bomberman::input ()
 
 void Bomberman::update ()
 {
+	battlefield->checkForExplosion();
 }
 
 void Bomberman::render (sf::RenderWindow *window)
