@@ -21,6 +21,8 @@ class BattleField
 		bool isPositionAvailable (int, int);
 		bool checkRedCorners (int, int);
 		bool checkOverlapping (std::string, float, float);
+		bool isXAxisCollision (float, float);
+		bool isYAxisCollision (float, float);
 
 		sf::Vector2f getRasterPoint(sf::Vector2f v);
 

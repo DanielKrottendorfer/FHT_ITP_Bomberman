@@ -35,19 +35,19 @@ void Player::movePlayer (std::string direction)
 {
 	if (direction.compare ("up") == 0)
 	{
-		this->sprite->move (0.f, -1.f);
+		this->sprite->move (0.f, -4.f);
 	}
 	else if (direction.compare ("left") == 0)
 	{
-		this->sprite->move (-1.f, 0.f);
+		this->sprite->move (-4.f, 0.f);
 	}
 	else if (direction.compare ("down") == 0)
 	{
-		this->sprite->move (0.f, 1.f);
+		this->sprite->move (0.f, 4.f);
 	}
 	else if (direction.compare ("right") == 0)
 	{
-		this->sprite->move (1.f, 0.f);
+		this->sprite->move (4.f, 0.f);
 	}
 }
 
