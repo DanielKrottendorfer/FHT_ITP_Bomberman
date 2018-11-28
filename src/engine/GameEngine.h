@@ -11,7 +11,7 @@ class GameEngine {
         void init();
         ~GameEngine();
 
-        GameEngine(std::string windowTitle, int width, int height, IGameLogic* gameLogic);
+        GameEngine(sf::RenderWindow* menuWindow, IGameLogic* gameLogic);
 
         
         const int UPS = 60;

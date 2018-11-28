@@ -8,8 +8,9 @@
 
 // Updates per second
 
-GameEngine::GameEngine(std::string windowTitle, int width, int height, IGameLogic* gameLogic){
-    window = new sf::RenderWindow(sf::VideoMode(width, height), windowTitle);
+GameEngine::GameEngine(sf::RenderWindow* menuWindow, IGameLogic* gameLogic){
+    //window = new sf::RenderWindow(sf::VideoMode(width, height), windowTitle);
+    window = menuWindow;
     this->gameLogic = gameLogic;
 }
 
@@ -32,7 +33,9 @@ void GameEngine::gameLoop(){
                 window->close();
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                window->close();
+                //window->close();
+                //std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                return; // -> main.cpp
 
             
         }

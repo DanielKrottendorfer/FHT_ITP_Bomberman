@@ -13,3 +13,7 @@ sfml-window-d-2.dll
 /Debug/
 .cproject
 .settings/
+mingw64
+./a.exe
+.gitignore
+

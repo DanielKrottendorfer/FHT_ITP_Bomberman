@@ -4,22 +4,68 @@
 
 #include ".\engine\GameEngine.h"
 #include "Bomberman.h"
+#include "objects/menu/Menu.h"
 
 int main(){
 
+    sf::RenderWindow* menuWindow;
+    menuWindow = new sf::RenderWindow(sf::VideoMode(1280, 704), "Bomberman++");
+    Menu menu(menuWindow->getSize().x, menuWindow->getSize().y);
+   
+    while (menuWindow->isOpen())
+    {
+        sf::Event event;
+        while(menuWindow->pollEvent(event))
+        {
+            switch (event.type)
+            {
+                case sf::Event::KeyReleased:
+                    switch (event.key.code)
+                    {
+                        case sf::Keyboard::Up:
+                            menu.moveUp();
+                            break;
+                        
+                        case sf::Keyboard::Down:
+                            menu.moveDown();
+                            break;
+                        
+                        case sf::Keyboard::Enter:
+                            switch (menu.getPressedItem())
+                            {
+                                case 0: // Play
+                                {
+                                    std::cout << "Play button pressed" << std::endl;
+                                    std::cout << "gameLogic" << std::endl;
+                                    IGameLogic* gameLogic = new Bomberman();
+                                    std::cout << "gameEngine" << std::endl;
+                                    GameEngine* gameEng = new GameEngine(menuWindow, gameLogic);
+                                    std::cout << "start" << std::endl;
+                                    gameEng->start();
+                                    std::cout << "end" << std::endl;
+                                    break;
+                                }
+                                case 1: // Options
+                                    std::cout << "Option button pressed" << std::endl;
+                                    break;
 
-    std::cout << "gameLogic" << std::endl;
-    
-    IGameLogic* gameLogic = new Bomberman();
+                                case 2: // End
+                                    menuWindow->close();
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                
+                case sf::Event::Closed:
+                    menuWindow->close();
+                    break;        
+            }
+        }
 
-    std::cout << "gameEngine" << std::endl;
+        menuWindow->clear();
+        menu.draw(*menuWindow);
+        menuWindow->display();
+    }    
 
-    GameEngine* gameEng = new GameEngine("Bomberman++", 1280 , 704, gameLogic);
-
-    
-    std::cout << "start" << std::endl;
-
-    gameEng->start();
-
-    std::cout << "end" << std::endl;
 }
