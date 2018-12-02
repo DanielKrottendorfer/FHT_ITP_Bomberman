@@ -11,8 +11,7 @@ class BattleField
 {
 	private:
 		std::vector<BuildingBlock> battlefieldBlocks;
-		std::vector<sf::Texture*> battleFieldTextures;
-		std::vector<Bomb*> battlefieldBombs;
+		std::vector<Bomb> battlefieldBombs;
 
 		void createBattleField ();
 		void createFrameBlocks ();
@@ -26,6 +25,24 @@ class BattleField
 
 		sf::Vector2f getRasterPoint(sf::Vector2f v);
 
+
+		sf::Texture tSideTexture;
+		sf::Texture rSideTexture;
+		sf::Texture lSideTexture;
+		sf::Texture bSideTexture;
+
+		sf::Texture tlCornerTexture;
+		sf::Texture trCornerTexture;
+		sf::Texture blCornerTexture;
+		sf::Texture brCornerTexture;
+		
+		sf::Texture dBlockTexture;
+		sf::Texture idBlockTexture;
+
+		sf::Texture player1Texture;
+
+		sf::Texture bombTexture;
+
 	public:
 		static const int NUMBER_OF_HORIZONTAL_BLOCKS = 15;
 		static const int NUMBER_OF_VERTICAL_BLOCKS = 11;
@@ -36,9 +53,9 @@ class BattleField
 
 		BattleField ();
 		virtual ~BattleField ();
-		void draw (sf::RenderWindow *window);
+		void draw (sf::RenderWindow* window);
 		void generatePlayer ();
-		void procedeMove (Player*);
+		void procedeMove ();
 		void checkForExplosion();
 		void addBomb(sf::Vector2f v);
 };

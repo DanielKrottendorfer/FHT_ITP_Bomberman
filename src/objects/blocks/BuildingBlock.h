@@ -14,16 +14,17 @@ class BuildingBlock
 		static const int OBJECT_HEIGHT_PX = 64;
 
 		BuildingBlock (std::string texurePath, int x, int y, bool isDestructible);
-		BuildingBlock (sf::Texture *texure, int x, int y, bool isDestructible);
+		BuildingBlock (sf::Texture& texure, int x, int y, bool isDestructible);
 		virtual ~BuildingBlock ();
+
+		sf::Sprite getSprite() const; 
 
 		bool getIsBuildingBlockDestructible ()
 		{
 			return this->isDestructible;
 		}
 
-		sf::Texture* texture;
-		sf::Sprite* sprite;
+		sf::Sprite sprite;
 };
 
 #endif /* SRC_OBJECTS_BLOCKS_BUILDINGBLOCK_H_ */

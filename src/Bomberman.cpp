@@ -15,23 +15,22 @@ Bomberman::Bomberman ()
 
 void Bomberman::init ()
 {
-	battlefield = new BattleField ();
-	player = battlefield->battlefieldPlayers.at (0); // 0 only for movement prototype
+	player = battlefield.battlefieldPlayers.at (0); // 0 only for movement prototype
 }
 
 void Bomberman::input ()
 {
 	// TODO Also needs to be updated for joystick
-	battlefield->procedeMove (&player);
+	battlefield.procedeMove();
 }
 
 void Bomberman::update ()
 {
-	battlefield->checkForExplosion();
+	battlefield.checkForExplosion();
 }
 
-void Bomberman::render (sf::RenderWindow *window)
+void Bomberman::render (sf::RenderWindow* window)
 {
 	window->clear (sf::Color::Black);
-	battlefield->draw (window);
+	battlefield.draw (window);
 }

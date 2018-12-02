@@ -6,27 +6,30 @@
 
 BuildingBlock::BuildingBlock (std::string texturePath, int x, int y, bool isDestructible)
 {
-	this->texture = new sf::Texture;
-	this->sprite = new sf::Sprite;
 
-	if (!texture->loadFromFile (texturePath))
+	sf::Texture texture;
+
+	if (!texture.loadFromFile (texturePath))
 	{
 		std::cout << "Nicht geladen" << std::endl;
 	}
 
-	this->sprite->setTexture (*texture);
-	this->sprite->setPosition (x, y);
-	this->isDestructible = isDestructible;
+	sprite.setTexture (texture);
+	sprite.setPosition (x, y);
+	isDestructible = isDestructible;
 }
 
-BuildingBlock::BuildingBlock (sf::Texture *texure, int x, int y, bool isDestructible)
+BuildingBlock::BuildingBlock (sf::Texture& texture, int x, int y, bool isDestr)
 {
-	this->texture = new sf::Texture;
-	this->sprite = new sf::Sprite;
 
-	this->sprite->setTexture (*texture);
-	this->sprite->setPosition (x, y);
-	this->isDestructible = isDestructible;
+	sprite.setTexture (texture);
+	sprite.setPosition (x, y);
+	isDestructible = isDestr;
+}
+
+sf::Sprite BuildingBlock::getSprite() const 
+{
+    return sprite;
 }
 
 BuildingBlock::~BuildingBlock ()

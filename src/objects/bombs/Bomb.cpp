@@ -1,29 +1,14 @@
 #include "Bomb.h"
+#include <SFML/Graphics.hpp>
 
 #include <iostream>
 #include <string>
 
-Bomb::Bomb (std::string texturePath, int x, int y)
+
+Bomb::Bomb(sf::Texture& TEMP_Texture,float x,float y)
 {
-	this->texture = new sf::Texture;
-	this->sprite = new sf::Sprite;
-
-	if (!texture->loadFromFile (texturePath))
-	{
-		std::cout << "Nicht geladen" << std::endl;
-	}
-
-	this->sprite->setTexture (*texture);
-	this->sprite->setPosition (x, y);
-}
-
-Bomb::Bomb (sf::Texture *texure, int x, int y)
-{
-	this->texture = new sf::Texture;
-	this->sprite = new sf::Sprite;
-
-	this->sprite->setTexture (*texture);
-	this->sprite->setPosition (x, y);
+    sprite.setTexture(TEMP_Texture);
+    sprite.setPosition(x,y);
 }
 
 void Bomb::ignite()
@@ -42,10 +27,12 @@ bool Bomb::explodes()
     return false;
 }
 
+sf::Sprite Bomb::getSprite() const 
+{
+    return sprite;
+}
+
 Bomb::~Bomb ()
 {
-    delete(texture);
-    delete(sprite);
-    delete(timer);
 }
 

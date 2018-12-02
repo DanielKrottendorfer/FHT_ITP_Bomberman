@@ -17,7 +17,7 @@ class Bomberman : public IGameLogic{
 
 
     private:
-        BattleField* battlefield;
+        BattleField battlefield;
         Player player;
         std::vector<GameItem> backGroundItems;
         std::vector<sf::Texture> backGroundTextures;

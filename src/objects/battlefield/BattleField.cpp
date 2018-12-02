@@ -33,16 +33,38 @@ void BattleField::createBattleField ()
 	 battleFieldTextures.push_back(&bottom);
 	 */
 
+
+	tSideTexture.loadFromFile("res/BackgroundItems/topEdge.png");
+	rSideTexture.loadFromFile("res/BackgroundItems/rightEdge.png");
+	lSideTexture.loadFromFile("res/BackgroundItems/leftEdge.png");
+	bSideTexture.loadFromFile("res/BackgroundItems/bottomEdge.png");
+
+	tlCornerTexture.loadFromFile("res/BackgroundItems/LeftTopCorner.png");
+	trCornerTexture.loadFromFile("res/BackgroundItems/RightTopCorner.png");
+	blCornerTexture.loadFromFile("res/BackgroundItems/LeftBottomCorner.png");
+	brCornerTexture.loadFromFile("res/BackgroundItems/RightBottomCorner.png");
+			
+	dBlockTexture.loadFromFile("res/BackgroundItems/destructibleBlocks.png");
+	idBlockTexture.loadFromFile("res/BackgroundItems/indestructibleBlocks.png");
+
+	player1Texture.loadFromFile("res/Character/Char1_front.png");
+			
+	bombTexture.loadFromFile("res/Bomb.png");
+
+
 	createFrameBlocks ();
 	createIndestructibleFieldBlocks ();
 	generateDestructibleFieldBlocks ();
 
 	generatePlayer (); // temp function initialisation
 
+		
+	
+
 	for (BuildingBlock b : battlefieldBlocks)
 	{
-		sf::Vector2f v = b.sprite->getPosition ();
-		std::cout << "x: " << v.x << "; y: " << v.y << "; textaddress:" << b.texture << std::endl;
+		sf::Vector2f v = b.getSprite().getPosition ();
+		std::cout << "x: " << v.x << "; y: " << v.y << "; textaddress:" << b.getSprite().getTexture() << std::endl;
 	}
 }
 
@@ -56,7 +78,7 @@ void BattleField::createFrameBlocks ()
 		//std::cout << "start" << std::endl;
 
 		//std::cout << i << std::endl;
-		BuildingBlock leftEdge ("res/BackgroundItems/leftEdge.png", xStart, yStart + i * BLOCK_SIZE,
+		BuildingBlock leftEdge (lSideTexture, xStart, yStart + i * BLOCK_SIZE,
 				false);
 		//std::cout << i << std::endl;
 
@@ -72,7 +94,7 @@ void BattleField::createFrameBlocks ()
 	for (int i = 1; i < NUMBER_OF_VERTICAL_BLOCKS - 1; i++)
 	{
 
-		BuildingBlock rightEdge ("res/BackgroundItems/rightEdge.png",
+		BuildingBlock rightEdge (rSideTexture,
 				xStart + (NUMBER_OF_HORIZONTAL_BLOCKS - 1) * BLOCK_SIZE, yStart + i * BLOCK_SIZE,
 				false);
 
@@ -82,7 +104,7 @@ void BattleField::createFrameBlocks ()
 
 	for (int i = 1; i < NUMBER_OF_HORIZONTAL_BLOCKS - 1; i++)
 	{
-		BuildingBlock topEdge ("res/BackgroundItems/topEdge.png", xStart + i * BLOCK_SIZE, yStart,
+		BuildingBlock topEdge (tSideTexture, xStart + i * BLOCK_SIZE, yStart,
 				false);
 		battlefieldBlocks.push_back (topEdge);
 		//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
@@ -90,27 +112,27 @@ void BattleField::createFrameBlocks ()
 
 	for (int i = 1; i < NUMBER_OF_HORIZONTAL_BLOCKS - 1; i++)
 	{
-		BuildingBlock bottomEdge ("res/BackgroundItems/bottomEdge.png", xStart + i * BLOCK_SIZE,
+		BuildingBlock bottomEdge (bSideTexture, xStart + i * BLOCK_SIZE,
 				yStart + BLOCK_SIZE * (NUMBER_OF_VERTICAL_BLOCKS - 1), false);
 		battlefieldBlocks.push_back (bottomEdge);
 		//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 	}
 
-	BuildingBlock leftTopCorner ("res/BackgroundItems/leftTopCorner.png", xStart, yStart, false);
+	BuildingBlock leftTopCorner (tlCornerTexture, xStart, yStart, false);
 	battlefieldBlocks.push_back (leftTopCorner);
 	//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 
-	BuildingBlock rightTopCorner ("res/BackgroundItems/rightTopCorner.png",
+	BuildingBlock rightTopCorner (trCornerTexture,
 			xStart + BLOCK_SIZE * (NUMBER_OF_HORIZONTAL_BLOCKS - 1), yStart, false);
 	battlefieldBlocks.push_back (rightTopCorner);
 	//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 
-	BuildingBlock leftBottomCorner ("res/BackgroundItems/leftBottomCorner.png", xStart,
+	BuildingBlock leftBottomCorner (blCornerTexture, xStart,
 			yStart + BLOCK_SIZE * (NUMBER_OF_VERTICAL_BLOCKS - 1), false);
 	battlefieldBlocks.push_back (leftBottomCorner);
 	//battleField2D.push_back(&battlefieldBlocks[battlefieldBlocks.size()-1]);
 
-	BuildingBlock rightBottomCorner ("res/BackgroundItems/rightBottomCorner.png",
+	BuildingBlock rightBottomCorner (brCornerTexture,
 			xStart + BLOCK_SIZE * (NUMBER_OF_HORIZONTAL_BLOCKS - 1),
 			yStart + BLOCK_SIZE * (NUMBER_OF_VERTICAL_BLOCKS - 1), false);
 	battlefieldBlocks.push_back (rightBottomCorner);
@@ -123,7 +145,7 @@ void BattleField::createIndestructibleFieldBlocks ()
 	{
 		for (int j = 2; j < NUMBER_OF_VERTICAL_BLOCKS - 2; j += 2)
 		{
-			BuildingBlock indestructBlock ("res/BackgroundItems/indestructibleBlocks.png",
+			BuildingBlock indestructBlock (idBlockTexture,
 					i * BLOCK_SIZE, j * BLOCK_SIZE, false);
 			battlefieldBlocks.push_back (indestructBlock);
 		}
@@ -143,7 +165,7 @@ void BattleField::generateDestructibleFieldBlocks ()
 		int randomPositionY = rangeY (eng);
 		if (isPositionAvailable (randomPositionX, randomPositionY) == true)
 		{
-			BuildingBlock destructiveBlock ("res/BackgroundItems/destructibleBlocks.png",
+			BuildingBlock destructiveBlock (dBlockTexture,
 					randomPositionX * BLOCK_SIZE, randomPositionY * BLOCK_SIZE, true);
 			battlefieldBlocks.push_back (destructiveBlock);
 			i++;
@@ -159,7 +181,7 @@ bool BattleField::isPositionAvailable (int xPos, int yPos)
 {
 	for (BuildingBlock block : battlefieldBlocks)
 	{
-		sf::Vector2f position = block.sprite->getPosition ();
+		sf::Vector2f position = block.getSprite().getPosition ();
 		bool isPositionOnRedCorners = checkRedCorners (xPos, yPos);
 		if ((position.x == xPos * BLOCK_SIZE && position.y == yPos * BLOCK_SIZE)
 				|| !isPositionOnRedCorners)
@@ -222,7 +244,7 @@ bool BattleField::checkRedCorners (int xPos, int yPos)
 
 void BattleField::generatePlayer ()
 {
-	Player player ("res/Character/Char1_front.png", BLOCK_SIZE, BLOCK_SIZE);
+	Player player (player1Texture, BLOCK_SIZE, BLOCK_SIZE);
 	battlefieldPlayers.push_back (player);
 }
 
@@ -256,7 +278,7 @@ bool BattleField::checkOverlapping (std::string movingDirection, float playerPos
 {
 	for (BuildingBlock block : battlefieldBlocks)
 	{
-		sf::Vector2f blockPosition = block.sprite->getPosition ();
+		sf::Vector2f blockPosition = block.getSprite().getPosition ();
 		if (movingDirection.compare ("up") == 0)
 		{
 			if (blockPosition.y == playerPosY - BLOCK_SIZE
@@ -293,10 +315,10 @@ bool BattleField::checkOverlapping (std::string movingDirection, float playerPos
 	return true;
 }
 
-void BattleField::procedeMove (Player* player)
+void BattleField::procedeMove ()
 {
-	float playerPositionX = player->sprite->getPosition ().x;
-	float playerPositionY = player->sprite->getPosition ().y;
+	float playerPositionX = battlefieldPlayers[0].getSprite().getPosition ().x;
+	float playerPositionY = battlefieldPlayers[0].getSprite().getPosition ().y;
 
 	std::string movingDirection = "";
 	if (sf::Keyboard::isKeyPressed (sf::Keyboard::W))
@@ -328,7 +350,8 @@ void BattleField::procedeMove (Player* player)
 
 	if (this->checkOverlapping (movingDirection, playerPositionX, playerPositionY) == true)
 	{
-		player->movePlayer (movingDirection);
+		std::cout << playerPositionX << " " << playerPositionY << std::endl;
+		battlefieldPlayers[0].movePlayer (movingDirection);
 	}
 
 }
@@ -341,11 +364,13 @@ void BattleField::addBomb (sf::Vector2f v)
 
 	v = getRasterPoint (v);
 
-	Bomb* b = new Bomb ("res/Bomb.png", v.x, v.y);
 
-	b->ignite ();
+	Bomb b (bombTexture, v.x, v.y);
+
+	b.ignite ();
 
 	battlefieldBombs.push_back (b);
+
 
 }
 
@@ -355,9 +380,8 @@ void BattleField::checkForExplosion ()
 	for (int i = 0; i < battlefieldBombs.size (); i++)
 	{
 
-		if (battlefieldBombs[i]->explodes ())
+		if (battlefieldBombs[i].explodes ())
 		{
-			delete (battlefieldBombs[i]);
 			battlefieldBombs.erase (battlefieldBombs.begin () + i);
 		}
 
@@ -383,21 +407,21 @@ sf::Vector2f BattleField::getRasterPoint (sf::Vector2f v)
 
 }
 
-void BattleField::draw (sf::RenderWindow *window)
+void BattleField::draw (sf::RenderWindow* window)
 {
 	for (BuildingBlock buildingBlock : battlefieldBlocks)
 	{
-		window->draw (*buildingBlock.sprite);
+		window->draw (buildingBlock.getSprite());
 	}
 
-	for (Bomb* bomb : battlefieldBombs)
+	for (Bomb bomb : battlefieldBombs)
 	{
-		window->draw (*bomb->sprite);
+		window->draw (bomb.getSprite());
 	}
 
 	for (Player player : battlefieldPlayers)
 	{
-		window->draw (*player.sprite);
+		window->draw (player.getSprite());
 	}
 
 }
