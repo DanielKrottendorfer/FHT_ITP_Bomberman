@@ -8,7 +8,7 @@
 class Player
 {
 	public:
-		bool spaceIsPressed =false;
+		bool spaceIsPressed = false;
 
 		Player ();
 		Player (std::string texurePath, int x, int y);
@@ -17,9 +17,17 @@ class Player
 
 		sf::Sprite sprite;
 
-		sf::Sprite getSprite(); 
+		sf::Sprite getSprite ();
 
 		void movePlayer (std::string);
+
+	private:
+		bool isKeyPressed = false;
+
+		sf::Texture player1TextureRight;
+		sf::Texture player1TextureFront;
+		sf::Texture player1TextureLeft;
+		sf::Texture player1TextureBehind;
 };
 
 #endif /* SRC_OBJECTS_PLAYER_PLAYER_H_ */

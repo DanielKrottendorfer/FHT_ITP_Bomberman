@@ -337,6 +337,10 @@ void BattleField::procedeMove ()
 	{
 		movingDirection = "right";
 	}
+	else
+	{
+		battlefieldPlayers[0].sprite.setTexture (player1Texture);
+	}
 
 	if (sf::Keyboard::isKeyPressed (sf::Keyboard::Space))
 	{
@@ -346,14 +350,12 @@ void BattleField::procedeMove ()
 		addBomb (v);
 
 	}
-	// Check is possible to go in some direction
-
+	// Check is possible to go in some direction and move if yes
 	if (this->checkOverlapping (movingDirection, playerPositionX, playerPositionY) == true)
 	{
 		std::cout << playerPositionX << " " << playerPositionY << std::endl;
 		battlefieldPlayers[0].movePlayer (movingDirection);
 	}
-
 }
 
 void BattleField::addBomb (sf::Vector2f v)
