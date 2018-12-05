@@ -25,9 +25,13 @@ class Player
 		bool isKeyPressed = false;
 
 		sf::Texture player1TextureRight;
+		sf::Texture player1TextureRightWalk;
 		sf::Texture player1TextureFront;
+		sf::Texture player1TextureFrontWalk;
 		sf::Texture player1TextureLeft;
+		sf::Texture player1TextureLeftWalk;
 		sf::Texture player1TextureBehind;
+		sf::Texture player1TextureBehindWalk;
 };
 
 #endif /* SRC_OBJECTS_PLAYER_PLAYER_H_ */
