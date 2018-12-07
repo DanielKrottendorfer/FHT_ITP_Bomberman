@@ -21,6 +21,8 @@ class Player
 
 		void movePlayer (std::string);
 
+		int bombPower = 2;
+
 	private:
 		bool isKeyPressed = false;
 

@@ -3,6 +3,7 @@
 #include "../blocks/BuildingBlock.h"
 #include "../player/Player.h"
 #include "../bombs/Bomb.h"
+#include "../bombs/Explosion.h"
 
 #ifndef SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_
 #define SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_
@@ -12,6 +13,7 @@ class BattleField
 	private:
 		std::vector<BuildingBlock> battlefieldBlocks;
 		std::vector<Bomb> battlefieldBombs;
+		std::vector<Explosion> battlefieldExplosions;
 
 		void createBattleField ();
 		void createFrameBlocks ();
@@ -42,6 +44,7 @@ class BattleField
 		sf::Texture player1Texture;
 
 		sf::Texture bombTexture;
+		sf::Texture explosionTexture;
 
 	public:
 		static const int NUMBER_OF_HORIZONTAL_BLOCKS = 15;
@@ -57,7 +60,10 @@ class BattleField
 		void generatePlayer ();
 		void procedeMove ();
 		void checkForExplosion();
-		void addBomb(sf::Vector2f v);
+		void checkForExplosionSpread();
+		void addBomb(sf::Vector2f v, int power);
+		void addExplosion(sf::Vector2f v, int power);
+		void checkForExplosionExtinguish();
 };
 
 #endif /* SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_ */

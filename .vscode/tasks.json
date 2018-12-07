@@ -17,6 +17,7 @@
 				"./src/objects/blocks/BuildingBlock.cpp",
                 "./src/objects/player/Player.cpp",
                 "./src/objects/bombs/Bomb.cpp",
+                "./src/objects/bombs/Explosion.cpp",
                 "./src/objects/menu/Menu.cpp",
 				"-L./external/lib",
 				"-I./external/include",

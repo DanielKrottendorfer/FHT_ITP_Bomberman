@@ -5,10 +5,11 @@
 #include <string>
 
 
-Bomb::Bomb(sf::Texture& TEMP_Texture,float x,float y)
+Bomb::Bomb(sf::Texture& TEMP_Texture,float x,float y, int power)
 {
     sprite.setTexture(TEMP_Texture);
     sprite.setPosition(x,y);
+    this->power = power;
 }
 
 void Bomb::ignite()
