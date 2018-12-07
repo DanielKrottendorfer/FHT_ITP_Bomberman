@@ -325,7 +325,7 @@ void BattleField::procedeMove()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
-
+		
 		sf::Vector2f v = sf::Vector2f(playerPositionX, playerPositionY);
 
 		addBomb(v, battlefieldPlayers[0].bombPower);
@@ -345,6 +345,17 @@ void BattleField::addBomb(sf::Vector2f v, int power)
 	v.y += BLOCK_SIZE / 2;
 
 	v = getRasterPoint(v);
+
+	sf::Vector2f vb;
+	float tolerance = 0.1;
+	
+	for(Bomb b : battlefieldBombs)
+	{
+		vb = b.getSprite().getPosition();
+
+		if( abs(v.x-vb.x)<tolerance && abs(v.y-vb.y)<tolerance)
+			return;
+	}
 
 	Bomb b(bombTexture, v.x, v.y, power);
 
