@@ -237,24 +237,22 @@ void BattleField::generatePlayer()
 	battlefieldPlayers.push_back(player);
 }
 
-bool BattleField::isXAxisCollision (float blockPosX, float playerPosX)
+bool BattleField::isXAxisCollision(float blockPosX, float playerPosX)
 {
 	// return true means that moving is blocked
 	float playerCenterPos = playerPosX + BLOCK_SIZE / 2;
-	if (playerCenterPos - 15 > blockPosX - BLOCK_SIZE / 2
-			&& playerCenterPos + 15 < blockPosX + 1.5 * BLOCK_SIZE)
+	if (blockPosX == playerPosX || (playerCenterPos > blockPosX - BLOCK_SIZE / 2 && playerCenterPos < blockPosX + 1.5 * BLOCK_SIZE))
 	{
 		return true;
 	}
 	return false;
 }
 
-bool BattleField::isYAxisCollision (float blockPosY, float playerPosY)
+bool BattleField::isYAxisCollision(float blockPosY, float playerPosY)
 {
 	// return true means that moving is blocked
 	float playerCenterPos = playerPosY + BLOCK_SIZE / 2;
-	if (playerCenterPos - 15 > blockPosY - BLOCK_SIZE / 2
-			&& playerCenterPos + 15 < blockPosY + 1.5 * BLOCK_SIZE)
+	if (blockPosY == playerPosY || (playerCenterPos > blockPosY - BLOCK_SIZE / 2 && playerCenterPos < blockPosY + 1.5 * BLOCK_SIZE))
 	{
 		return true;
 	}
@@ -327,15 +325,16 @@ void BattleField::procedeMove()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
+
 		sf::Vector2f v = sf::Vector2f(playerPositionX, playerPositionY);
+
 		addBomb(v, battlefieldPlayers[0].bombPower);
 	}
-
 	// Check is possible to go in some direction and move if yes
 	if (this->checkOverlapping(movingDirection, playerPositionX, playerPositionY) == true)
 	{
 		std::cout << playerPositionX << " " << playerPositionY << std::endl;
-		battlefieldPlayers[0].movePlayer(movingDirection, playerPositionX, playerPositionY);
+		battlefieldPlayers[0].movePlayer(movingDirection);
 	}
 }
 

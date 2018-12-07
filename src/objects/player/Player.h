@@ -19,7 +19,7 @@ class Player
 
 		sf::Sprite getSprite ();
 
-		void movePlayer (std::string, float, float);
+		void movePlayer (std::string);
 
 		int bombPower = 2;
 

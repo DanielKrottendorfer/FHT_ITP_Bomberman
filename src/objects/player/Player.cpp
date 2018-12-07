@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include <cmath>
 #include "windows.h"
 
 Player::Player ()
@@ -40,11 +39,11 @@ sf::Sprite Player::getSprite ()
 	return sprite;
 }
 
-void Player::movePlayer (std::string direction, float playerPositionX, float playerPositionY)
+void Player::movePlayer (std::string direction)
 {
 	if (direction.compare ("up") == 0)
 	{
-		sprite.setPosition (round (playerPositionX / 64) * 64, playerPositionY - 4);
+		sprite.move (0.f, -4.f);
 		if (isKeyPressed)
 		{
 			sprite.setTexture (player1TextureBehind);
@@ -58,7 +57,7 @@ void Player::movePlayer (std::string direction, float playerPositionX, float pla
 	}
 	else if (direction.compare ("left") == 0)
 	{
-		sprite.setPosition (playerPositionX - 4, round (playerPositionY / 64) * 64);
+		sprite.move (-4.f, 0.f);
 		if (isKeyPressed)
 		{
 			sprite.setTexture (player1TextureLeft);
@@ -72,7 +71,7 @@ void Player::movePlayer (std::string direction, float playerPositionX, float pla
 	}
 	else if (direction.compare ("down") == 0)
 	{
-		sprite.setPosition (round (playerPositionX / 64) * 64, playerPositionY + 4);
+		sprite.move (0.f, 4.f);
 		if (isKeyPressed)
 		{
 			sprite.setTexture (player1TextureFront);
@@ -86,7 +85,7 @@ void Player::movePlayer (std::string direction, float playerPositionX, float pla
 	}
 	else if (direction.compare ("right") == 0)
 	{
-		sprite.setPosition (playerPositionX + 4, round (playerPositionY / 64) * 64);
+		sprite.move (4.f, 0.f);
 		if (isKeyPressed)
 		{
 			sprite.setTexture (player1TextureRight);
