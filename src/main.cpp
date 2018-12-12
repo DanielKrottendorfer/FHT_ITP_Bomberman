@@ -1,4 +1,5 @@
-
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 #include <string>
 #include <iostream>
 
@@ -11,7 +12,10 @@ int main(){
     sf::RenderWindow* menuWindow;
     menuWindow = new sf::RenderWindow(sf::VideoMode(1280, 704), "Bomberman++");
     Menu menu(menuWindow->getSize().x, menuWindow->getSize().y);
-   
+
+    menu.setmusic();
+    menu.menumusic();
+
     while (menuWindow->isOpen())
     {
         sf::Event event;
@@ -37,12 +41,14 @@ int main(){
                                 {
                                     std::cout << "Play button pressed" << std::endl;
                                     std::cout << "gameLogic" << std::endl;
+                                    menu.battlemusic();
                                     IGameLogic* gameLogic = new Bomberman();
                                     std::cout << "gameEngine" << std::endl;
                                     GameEngine* gameEng = new GameEngine(menuWindow, gameLogic);
                                     std::cout << "start" << std::endl;
                                     gameEng->start();
                                     std::cout << "end" << std::endl;
+                                    menu.menumusic();
                                     break;
                                 }
                                 case 1: // Options

@@ -21,7 +21,7 @@
                 "./src/objects/menu/Menu.cpp",
 				"-L./external/lib",
 				"-I./external/include",
-                "-lsfml-graphics", "-lsfml-window", "-lsfml-system"
+                "-lsfml-graphics", "-lsfml-window", "-lsfml-system", "-lsfml-audio"
             ],
             "group": {
                 "kind": "build",

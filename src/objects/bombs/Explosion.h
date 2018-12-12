@@ -19,7 +19,7 @@ class Explosion
     char getDirection();
 
   private:
-    int timeToSpread = 100;
+    int timeToSpread = 10;
     int timeToExtinguish = 300;
 
     int power = 0;

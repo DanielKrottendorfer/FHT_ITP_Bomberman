@@ -49,6 +49,26 @@ Menu::Menu(float width, float height)
 Menu::~Menu()
 {
 }
+//setmusic damit die Lieder gesetzt werden
+void Menu::setmusic()
+{
+    menmusic.openFromFile("res\\sound\\Komiku_menu.ogg");
+    battlmusic.openFromFile("res\\sound\\Komiku_Battle.ogg");
+}
+//menumusic und battlemusic damit diese funktionen in der main ausgeführt werden können
+void Menu::menumusic()
+{
+    battlmusic.stop();
+    menmusic.play();
+    menmusic.setLoop(true);
+}
+
+void Menu::battlemusic()
+{
+    menmusic.stop();
+    battlmusic.play();
+    battlmusic.setLoop(true);
+}
 
 void Menu::draw(sf::RenderWindow &window)
 {
