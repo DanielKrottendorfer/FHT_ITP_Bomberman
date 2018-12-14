@@ -237,109 +237,136 @@ void BattleField::generatePlayer()
 	battlefieldPlayers.push_back(player);
 }
 
-bool BattleField::isXAxisCollision (float blockPosX, float playerPosX)
+bool BattleField::isXAxisCollision(float blockPosX, float playerPosX)
 {
 	// return true means that moving is blocked
 	float playerCenterPos = playerPosX + BLOCK_SIZE / 2;
-	if (playerCenterPos - 15 > blockPosX - BLOCK_SIZE / 2
-			&& playerCenterPos + 15 < blockPosX + 1.5 * BLOCK_SIZE)
+	if (playerCenterPos - 15 > blockPosX - BLOCK_SIZE / 2 && playerCenterPos + 15 < blockPosX + 1.5 * BLOCK_SIZE)
 	{
 		return true;
 	}
 	return false;
 }
 
-bool BattleField::isYAxisCollision (float blockPosY, float playerPosY)
+bool BattleField::isYAxisCollision(float blockPosY, float playerPosY)
 {
 	// return true means that moving is blocked
 	float playerCenterPos = playerPosY + BLOCK_SIZE / 2;
-	if (playerCenterPos - 15 > blockPosY - BLOCK_SIZE / 2
-			&& playerCenterPos + 15 < blockPosY + 1.5 * BLOCK_SIZE)
+	if (playerCenterPos - 15 > blockPosY - BLOCK_SIZE / 2 && playerCenterPos + 15 < blockPosY + 1.5 * BLOCK_SIZE)
 	{
 		return true;
 	}
 	return false;
 }
 
-bool BattleField::checkOverlapping (std::string movingDirection, float playerPosX, float playerPosY)
+bool BattleField::checkObjectCollision(std::string movingDirection, sf::Vector2f objectPosition, float playerPosX, float playerPosY)
 {
-	for (BuildingBlock block : battlefieldBlocks)
+	if (movingDirection.compare("up") == 0)
 	{
-		sf::Vector2f blockPosition = block.getSprite ().getPosition ();
-		if (movingDirection.compare ("up") == 0)
+		if (objectPosition.y == playerPosY - BLOCK_SIZE && isXAxisCollision(objectPosition.x, playerPosX))
 		{
-			if (blockPosition.y == playerPosY - BLOCK_SIZE
-					&& isXAxisCollision (blockPosition.x, playerPosX))
-			{
-				return false;
-			}
+			return false;
 		}
-		else if (movingDirection.compare ("left") == 0)
+	}
+	else if (movingDirection.compare("left") == 0)
+	{
+		if (objectPosition.x == playerPosX - BLOCK_SIZE && isYAxisCollision(objectPosition.y, playerPosY))
 		{
-			if (blockPosition.x == playerPosX - BLOCK_SIZE
-					&& isYAxisCollision (blockPosition.y, playerPosY))
-			{
-				return false;
-			}
+			return false;
 		}
-		else if (movingDirection.compare ("down") == 0)
+	}
+	else if (movingDirection.compare("down") == 0)
+	{
+		if (objectPosition.y == playerPosY + BLOCK_SIZE && isXAxisCollision(objectPosition.x, playerPosX))
 		{
-			if (blockPosition.y == playerPosY + BLOCK_SIZE
-					&& isXAxisCollision (blockPosition.x, playerPosX))
-			{
-				return false;
-			}
+			return false;
 		}
-		else if (movingDirection.compare ("right") == 0
-				&& isYAxisCollision (blockPosition.y, playerPosY))
+	}
+	else if (movingDirection.compare("right") == 0 && isYAxisCollision(objectPosition.y, playerPosY))
+	{
+		if (objectPosition.x == playerPosX + BLOCK_SIZE)
 		{
-			if (blockPosition.x == playerPosX + BLOCK_SIZE)
-			{
-				return false;
-			}
+			return false;
 		}
 	}
 	return true;
 }
 
-void BattleField::procedeMove ()
+bool BattleField::checkBlockCollision(std::string movingDirection, float playerPosX, float playerPosY)
 {
-	float playerPositionX = battlefieldPlayers[0].getSprite ().getPosition ().x;
-	float playerPositionY = battlefieldPlayers[0].getSprite ().getPosition ().y;
+	for (BuildingBlock block : battlefieldBlocks)
+	{
+		sf::Vector2f blockPosition = block.getSprite().getPosition();
+		if (!checkObjectCollision(movingDirection, blockPosition, playerPosX, playerPosY))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool BattleField::checkBombCollision(std::string movingDirection, float playerPosX, float playerPosY)
+{
+	for (Bomb bomb : battlefieldBombs)
+	{
+		sf::Vector2f bombPosition = bomb.getSprite().getPosition();
+		if (!checkObjectCollision(movingDirection, bombPosition, playerPosX, playerPosY))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool BattleField::checkCollision(std::string movingDirection, float playerPositionX, float playerPositionY)
+{
+	bool isBlockColliding = checkBlockCollision(movingDirection, playerPositionX, playerPositionY);
+	bool isBombColliding = checkBombCollision(movingDirection, playerPositionX, playerPositionY);
+	if (isBlockColliding && isBombColliding)
+	{
+		return true;
+	}
+	return false;
+}
+
+void BattleField::procedeMove()
+{
+	float playerPositionX = battlefieldPlayers[0].getSprite().getPosition().x;
+	float playerPositionY = battlefieldPlayers[0].getSprite().getPosition().y;
 
 	std::string movingDirection = "";
-	if (sf::Keyboard::isKeyPressed (sf::Keyboard::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		movingDirection = "up";
 	}
-	else if (sf::Keyboard::isKeyPressed (sf::Keyboard::A))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		movingDirection = "left";
 	}
-	else if (sf::Keyboard::isKeyPressed (sf::Keyboard::S))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		movingDirection = "down";
 	}
-	else if (sf::Keyboard::isKeyPressed (sf::Keyboard::D))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		movingDirection = "right";
 	}
 	else
 	{
-		battlefieldPlayers[0].sprite.setTexture (player1Texture);
+		battlefieldPlayers[0].sprite.setTexture(player1Texture);
 	}
 
-	if (sf::Keyboard::isKeyPressed (sf::Keyboard::Space))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
-		sf::Vector2f v = sf::Vector2f (playerPositionX, playerPositionY);
-		addBomb (v, battlefieldPlayers[0].bombPower);
+		sf::Vector2f v = sf::Vector2f(playerPositionX, playerPositionY);
+		addBomb(v, battlefieldPlayers[0].bombPower);
 	}
 
 	// Check is possible to go in some direction and move if yes
-	if (this->checkOverlapping (movingDirection, playerPositionX, playerPositionY) == true)
+	if (this->checkCollision(movingDirection, playerPositionX, playerPositionY) == true)
 	{
 		std::cout << playerPositionX << " " << playerPositionY << std::endl;
-		battlefieldPlayers[0].movePlayer (movingDirection, playerPositionX, playerPositionY);
+		battlefieldPlayers[0].movePlayer(movingDirection, playerPositionX, playerPositionY);
 	}
 }
 
@@ -353,12 +380,12 @@ void BattleField::addBomb(sf::Vector2f v, int power)
 
 	sf::Vector2f vb;
 	float tolerance = 0.1;
-	
-	for(Bomb b : battlefieldBombs)
+
+	for (Bomb b : battlefieldBombs)
 	{
 		vb = b.getSprite().getPosition();
 
-		if( abs(v.x-vb.x)<tolerance && abs(v.y-vb.y)<tolerance)
+		if (abs(v.x - vb.x) < tolerance && abs(v.y - vb.y) < tolerance)
 			return;
 	}
 
@@ -440,7 +467,6 @@ void BattleField::checkForExplosionSpread()
 				break;
 			}
 
-
 			float tolerance = 0.1;
 
 			for (int y = 0; y < battlefieldBlocks.size(); y++)
@@ -453,7 +479,7 @@ void BattleField::checkForExplosionSpread()
 					{
 
 						battlefieldBlocks.erase(battlefieldBlocks.begin() + y);
-						Explosion e(explosionTexture,ve.x,ve.y,battlefieldExplosions[i].getDirection(),0);
+						Explosion e(explosionTexture, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
 						battlefieldExplosions.push_back(e);
 						return;
 					}
@@ -463,7 +489,7 @@ void BattleField::checkForExplosionSpread()
 					}
 				}
 			}
-			Explosion e(explosionTexture,ve.x,ve.y,battlefieldExplosions[i].getDirection(),power-1);
+			Explosion e(explosionTexture, ve.x, ve.y, battlefieldExplosions[i].getDirection(), power - 1);
 			battlefieldExplosions.push_back(e);
 		}
 	}

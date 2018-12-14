@@ -21,7 +21,10 @@ class BattleField
 		void generateDestructibleFieldBlocks ();
 		bool isPositionAvailable (int, int);
 		bool checkRedCorners (int, int);
-		bool checkOverlapping (std::string, float, float);
+		bool checkObjectCollision (std::string, sf::Vector2f, float, float);
+		bool checkBlockCollision (std::string, float, float);
+		bool checkBombCollision (std::string, float, float);
+		bool checkCollision (std::string, float, float);
 		bool isXAxisCollision (float, float);
 		bool isYAxisCollision (float, float);
 

@@ -38,6 +38,11 @@ class Player
 		sf::Texture player1TextureLeftWalk;
 		sf::Texture player1TextureBehind;
 		sf::Texture player1TextureBehindWalk;
+
+		void goUp (float, float);
+		void goLeft (float, float);
+		void goDown (float, float);
+		void goRight (float, float);
 };
 
 #endif /* SRC_OBJECTS_PLAYER_PLAYER_H_ */
