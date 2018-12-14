@@ -25,6 +25,10 @@ class Player
 
 	private:
 		bool isKeyPressed = false;
+		int upwalk = 0;
+		int downwalk = 0;
+		int rightwalk = 0;
+		int leftwalk = 0;
 
 		sf::Texture player1TextureRight;
 		sf::Texture player1TextureRightWalk;

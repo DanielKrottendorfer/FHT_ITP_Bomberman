@@ -45,57 +45,89 @@ void Player::movePlayer (std::string direction, float playerPositionX, float pla
 	if (direction.compare ("up") == 0)
 	{
 		sprite.setPosition (round (playerPositionX / 64) * 64, playerPositionY - 4);
-		if (isKeyPressed)
+		if (upwalk < 9)
 		{
 			sprite.setTexture (player1TextureBehind);
-			isKeyPressed = false;
+			upwalk++;
+		}
+		else if (upwalk > 8)
+		{
+			sprite.setTexture (player1TextureBehindWalk);
+			upwalk++;
+			if(upwalk > 16)
+			{
+				upwalk = 0;
+			}
 		}
 		else
 		{
-			sprite.setTexture (player1TextureBehindWalk);
-			isKeyPressed = true;
+			upwalk++;
 		}
 	}
 	else if (direction.compare ("left") == 0)
 	{
 		sprite.setPosition (playerPositionX - 4, round (playerPositionY / 64) * 64);
-		if (isKeyPressed)
+		if (leftwalk < 9)
 		{
 			sprite.setTexture (player1TextureLeft);
-			isKeyPressed = false;
+			leftwalk++;
+		}
+		else if (leftwalk > 8)
+		{
+			sprite.setTexture (player1TextureLeftWalk);
+			leftwalk++;
+			if(leftwalk > 16)
+			{
+				leftwalk = 0;
+			}
 		}
 		else
 		{
-			sprite.setTexture (player1TextureLeftWalk);
-			isKeyPressed = true;
+			leftwalk++;
 		}
 	}
 	else if (direction.compare ("down") == 0)
 	{
 		sprite.setPosition (round (playerPositionX / 64) * 64, playerPositionY + 4);
-		if (isKeyPressed)
+		if (downwalk < 9)
 		{
 			sprite.setTexture (player1TextureFront);
-			isKeyPressed = false;
+			downwalk++;
+		}
+		else if (downwalk > 8)
+		{
+			sprite.setTexture (player1TextureFrontWalk);
+			downwalk++;
+			if(downwalk > 16)
+			{
+				downwalk = 0;
+			}
 		}
 		else
 		{
-			sprite.setTexture (player1TextureFrontWalk);
-			isKeyPressed = true;
+			downwalk++;
 		}
 	}
 	else if (direction.compare ("right") == 0)
 	{
 		sprite.setPosition (playerPositionX + 4, round (playerPositionY / 64) * 64);
-		if (isKeyPressed)
+		if (rightwalk < 9)
 		{
 			sprite.setTexture (player1TextureRight);
-			isKeyPressed = false;
+			rightwalk++;
+		}
+		else if (rightwalk > 8)
+		{
+			sprite.setTexture (player1TextureRightWalk);
+			rightwalk++;
+			if(rightwalk > 16)
+			{
+				rightwalk = 0;
+			}
 		}
 		else
 		{
-			sprite.setTexture (player1TextureRightWalk);
-			isKeyPressed = true;
+			rightwalk++;
 		}
 	}
 }
