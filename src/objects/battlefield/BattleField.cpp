@@ -514,13 +514,6 @@ void BattleField::checkForPlayerDeath()
 			//Top Left Explosion
 			sf::Vector2f tle = e.getSprite().getPosition();
 
-			//Bottom Right Explosion
-			sf::Vector2f bre = e.getSprite().getPosition();
-			bre.x = bre.x + BLOCK_SIZE;
-			bre.y = bre.y + BLOCK_SIZE;
-
-
-
 			bool hit = false;
 
 			for(int x = 0 ; x<4 ; x++)
@@ -559,7 +552,6 @@ void BattleField::checkForPlayerDeath()
 
 			if(hit)
 				break;
-		
 
 		}
 
