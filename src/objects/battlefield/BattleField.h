@@ -64,6 +64,7 @@ class BattleField
 		void procedeMove ();
 		void checkForExplosion();
 		void checkForExplosionSpread();
+		void checkForPlayerDeath();
 		void addBomb(sf::Vector2f v, int power);
 		void addExplosion(sf::Vector2f v, int power);
 		void checkForExplosionExtinguish();

@@ -60,6 +60,16 @@ void Player::movePlayer(std::string direction, float playerPositionX, float play
 	}
 }
 
+sf::Vector2f Player::getHitbox()
+{
+	return hitbox;
+}
+
+sf::Vector2f Player::getHitboxOffset()
+{
+	return hitboxOffset;
+}
+
 void Player::goUp(float playerPositionX, float playerPositionY)
 {
 	sprite.setPosition(round(playerPositionX / 64) * 64, playerPositionY - 4);

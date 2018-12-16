@@ -503,6 +503,70 @@ void BattleField::checkForExplosionExtinguish()
 			battlefieldExplosions.erase(battlefieldExplosions.begin() + i);
 }
 
+void BattleField::checkForPlayerDeath()
+{
+
+	for(int i=0 ; i<battlefieldPlayers.size() ; i++)
+	{
+
+		for(Explosion e:battlefieldExplosions)
+		{
+			//Top Left Explosion
+			sf::Vector2f tle = e.getSprite().getPosition();
+
+			//Bottom Right Explosion
+			sf::Vector2f bre = e.getSprite().getPosition();
+			bre.x = bre.x + BLOCK_SIZE;
+			bre.y = bre.y + BLOCK_SIZE;
+
+
+
+			bool hit = false;
+
+			for(int x = 0 ; x<4 ; x++)
+			{
+				//Top Left PlayerHitbox
+				sf::Vector2f tlp = battlefieldPlayers[i].getSprite().getPosition();
+
+				switch(x)
+				{
+					case 0:
+						tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x;
+						tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y;
+					break;
+					case 1:
+						tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x + battlefieldPlayers[i].getHitbox().x;
+						tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y;
+					break;
+					case 2:
+						tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x;
+						tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y + battlefieldPlayers[i].getHitbox().y;
+					break;
+					case 3:
+						tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x + battlefieldPlayers[i].getHitbox().x;
+						tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y + battlefieldPlayers[i].getHitbox().y;
+					break;
+				}
+
+				if(  (tle.y < tlp.y && tle.y+64 > tlp.y) && (tle.x < tlp.x && tle.x+64 > tlp.x)  )
+				{
+					std::cout << "player: " << i+1 << "died" << std::endl;
+					hit = true;
+					break;
+				}
+
+			}
+
+			if(hit)
+				break;
+		
+
+		}
+
+	}
+
+}
+
 sf::Vector2f BattleField::getRasterPoint(sf::Vector2f v)
 {
 

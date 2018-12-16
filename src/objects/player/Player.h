@@ -19,6 +19,9 @@ class Player
 
 		sf::Sprite getSprite ();
 
+		sf::Vector2f getHitbox();
+		sf::Vector2f getHitboxOffset();
+
 		void movePlayer (std::string, float, float);
 
 		int bombPower = 2;
@@ -29,6 +32,9 @@ class Player
 		int downwalk = 0;
 		int rightwalk = 0;
 		int leftwalk = 0;
+
+		sf::Vector2f hitbox = sf::Vector2f(40,40);
+		sf::Vector2f hitboxOffset = sf::Vector2f(12,12);
 
 		sf::Texture player1TextureRight;
 		sf::Texture player1TextureRightWalk;
