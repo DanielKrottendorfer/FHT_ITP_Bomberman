@@ -461,17 +461,13 @@ void BattleField::addExplosion(sf::Vector2f v, int power)
 
 void BattleField::addPowerup(sf::Vector2f v)
 {
-	std::cout << "addP0" << std::endl;
 	Powerup p(powerupTexture, v.x, v.y, 'p');
-	std::cout << "addP1" << std::endl;
 	battlefieldPowerups.push_back(p);
-	std::cout << "addP2" << std::endl;
 }
 
 void BattleField::collectPowerups()
 {
 
-	std::cout << "collectP0" << std::endl;
 	for (int i = 0; i < battlefieldPlayers.size(); i++)
 	{
 
@@ -505,21 +501,16 @@ void BattleField::collectPowerups()
 					break;
 				}
 
-				std::cout << "collectP1" << std::endl;
 				if ((tle.y < tlp.y && tle.y + 64 > tlp.y) && (tle.x < tlp.x && tle.x + 64 > tlp.x))
 				{
-					std::cout << "collectP2" << std::endl;
 					battlefieldPlayers[i].incBombPower();
 
-					std::cout << "collectP3" << std::endl;
 					battlefieldPowerups.erase(battlefieldPowerups.begin()+y);
-					std::cout << "collectP4" << std::endl;
 					return;
 				}
 			}
 		}
 	}
-					std::cout << "collectP5" << std::endl;
 }
 
 void BattleField::checkForExplosion()
