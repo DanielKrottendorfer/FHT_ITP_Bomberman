@@ -13,8 +13,8 @@ int main(){
     menuWindow = new sf::RenderWindow(sf::VideoMode(1280, 704), "Bomberman++");
     Menu menu(menuWindow->getSize().x, menuWindow->getSize().y);
 
-    menu.setmusic();
-    menu.menumusic();
+    menu.setMusic();
+    menu.menuMusic();
 
     while (menuWindow->isOpen())
     {
@@ -41,14 +41,14 @@ int main(){
                                 {
                                     std::cout << "Play button pressed" << std::endl;
                                     std::cout << "gameLogic" << std::endl;
-                                    menu.battlemusic();
+                                    menu.battleMusic();
                                     IGameLogic* gameLogic = new Bomberman();
                                     std::cout << "gameEngine" << std::endl;
                                     GameEngine* gameEng = new GameEngine(menuWindow, gameLogic);
                                     std::cout << "start" << std::endl;
                                     gameEng->start();
                                     std::cout << "end" << std::endl;
-                                    menu.menumusic();
+                                    menu.menuMusic();
                                     break;
                                 }
                                 case 1: // Options

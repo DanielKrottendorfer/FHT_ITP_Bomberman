@@ -15,15 +15,16 @@ class Menu
         void moveDown();
         int getPressedItem() {return selectedItemIndex;}
         
-        void setmusic();
-        void battlemusic();
-        void menumusic();
-        sf::Music menmusic;
-        sf::Music battlmusic;
+        void setMusic();
+        void battleMusic();
+        void menuMusic();
+        sf::Music menMusic;
+        sf::Music battlMusic;
 
     private:
         int selectedItemIndex;
         sf::Font font;
-        sf::Text title;
         sf::Text menu[MAX_NUMBER_OF_ITEMS];
+        sf::Texture menuBackgroundTexture;
+        sf::Sprite menuBackgroundSprite;
 };
