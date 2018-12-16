@@ -30,6 +30,8 @@ void Bomberman::update ()
 	battlefield.checkForExplosionSpread();
 	battlefield.checkForExplosionExtinguish();
 	battlefield.checkForPlayerDeath();
+
+	battlefield.collectPowerups();
 }
 
 void Bomberman::render (sf::RenderWindow* window)

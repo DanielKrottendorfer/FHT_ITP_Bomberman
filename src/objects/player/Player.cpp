@@ -70,6 +70,11 @@ sf::Vector2f Player::getHitboxOffset()
 	return hitboxOffset;
 }
 
+void Player::incBombPower()
+{
+	bombPower*=2;
+}
+
 void Player::goUp(float playerPositionX, float playerPositionY)
 {
 	sprite.setPosition(round(playerPositionX / 64) * 64, playerPositionY - 4);

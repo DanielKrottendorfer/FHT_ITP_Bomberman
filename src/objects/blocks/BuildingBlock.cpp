@@ -32,6 +32,17 @@ sf::Sprite BuildingBlock::getSprite() const
     return sprite;
 }
 
+char BuildingBlock::getPowerupDrop()
+{
+	return powerupDrop;
+}
+
+void BuildingBlock::setPowerupDrop(char p)
+{
+	powerupDrop = p;
+}
+
+
 BuildingBlock::~BuildingBlock ()
 {
 }

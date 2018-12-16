@@ -26,6 +26,8 @@ class Player
 
 		int bombPower = 2;
 
+		void incBombPower();
+
 	private:
 		bool isKeyPressed = false;
 		int upwalk = 0;

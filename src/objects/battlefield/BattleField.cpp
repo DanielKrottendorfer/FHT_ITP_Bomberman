@@ -51,16 +51,20 @@ void BattleField::createBattleField()
 	bombTexture.loadFromFile("res/Bomb.png");
 	explosionTexture.loadFromFile("res/Explosion.png");
 
+	powerupTexture.loadFromFile("res/Powerup/Power_Up_Flame1.png");
+
 	createFrameBlocks();
 	createIndestructibleFieldBlocks();
 	generateDestructibleFieldBlocks();
+	distributePowerups();
 
 	generatePlayer(); // temp function initialisation
 
+	int count = 0;
 	for (BuildingBlock b : battlefieldBlocks)
 	{
 		sf::Vector2f v = b.getSprite().getPosition();
-		std::cout << "x: " << v.x << "; y: " << v.y << "; textaddress:" << b.getSprite().getTexture() << std::endl;
+		std::cout << "x: " << v.x << "; y: " << v.y << "; textaddress:" << b.getSprite().getTexture() << " " << b.getPowerupDrop()<< std::endl;
 	}
 }
 
@@ -171,6 +175,37 @@ void BattleField::generateDestructibleFieldBlocks()
 			continue;
 		}
 	}
+}
+
+void BattleField::distributePowerups()
+{
+
+	std::srand(std::time(nullptr));
+	int counter = 0;
+	for (int i = 0;; i++)
+	{
+
+		if (i == battlefieldBlocks.size())
+			i = 0;
+
+		if (battlefieldBlocks[i].getIsBuildingBlockDestructible() && battlefieldBlocks[i].getPowerupDrop() == 'n')
+		{
+
+			int random_variable = std::rand();
+
+			random_variable %= 4;
+
+			if (random_variable == 0)
+			{
+				battlefieldBlocks[i].setPowerupDrop('p');
+				counter++;
+			}
+
+			if (counter == POWERUP_COUNT)
+				return;
+		}
+	}
+
 }
 
 bool BattleField::isPositionAvailable(int xPos, int yPos)
@@ -365,7 +400,7 @@ void BattleField::procedeMove()
 	// Check is possible to go in some direction and move if yes
 	if (this->checkCollision(movingDirection, playerPositionX, playerPositionY) == true)
 	{
-		std::cout << playerPositionX << " " << playerPositionY << std::endl;
+		//std::cout << playerPositionX << " " << playerPositionY << std::endl;
 		battlefieldPlayers[0].movePlayer(movingDirection, playerPositionX, playerPositionY);
 	}
 }
@@ -424,6 +459,69 @@ void BattleField::addExplosion(sf::Vector2f v, int power)
 	}
 }
 
+void BattleField::addPowerup(sf::Vector2f v)
+{
+	std::cout << "addP0" << std::endl;
+	Powerup p(powerupTexture, v.x, v.y, 'p');
+	std::cout << "addP1" << std::endl;
+	battlefieldPowerups.push_back(p);
+	std::cout << "addP2" << std::endl;
+}
+
+void BattleField::collectPowerups()
+{
+
+	std::cout << "collectP0" << std::endl;
+	for (int i = 0; i < battlefieldPlayers.size(); i++)
+	{
+
+		for (int y=0 ; y < battlefieldPowerups.size() ; y++)
+		{
+			//Top Left Explosion
+			sf::Vector2f tle = battlefieldPowerups[y].getSprite().getPosition();
+
+			for (int x = 0; x < 4; x++)
+			{
+				//Top Left PlayerHitbox
+				sf::Vector2f tlp = battlefieldPlayers[i].getSprite().getPosition();
+
+				switch (x)
+				{
+				case 0:
+					tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x;
+					tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y;
+					break;
+				case 1:
+					tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x + battlefieldPlayers[i].getHitbox().x;
+					tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y;
+					break;
+				case 2:
+					tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x;
+					tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y + battlefieldPlayers[i].getHitbox().y;
+					break;
+				case 3:
+					tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x + battlefieldPlayers[i].getHitbox().x;
+					tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y + battlefieldPlayers[i].getHitbox().y;
+					break;
+				}
+
+				std::cout << "collectP1" << std::endl;
+				if ((tle.y < tlp.y && tle.y + 64 > tlp.y) && (tle.x < tlp.x && tle.x + 64 > tlp.x))
+				{
+					std::cout << "collectP2" << std::endl;
+					battlefieldPlayers[i].incBombPower();
+
+					std::cout << "collectP3" << std::endl;
+					battlefieldPowerups.erase(battlefieldPowerups.begin()+y);
+					std::cout << "collectP4" << std::endl;
+					return;
+				}
+			}
+		}
+	}
+					std::cout << "collectP5" << std::endl;
+}
+
 void BattleField::checkForExplosion()
 {
 
@@ -478,6 +576,11 @@ void BattleField::checkForExplosionSpread()
 					if (battlefieldBlocks[y].getIsBuildingBlockDestructible())
 					{
 
+						if (battlefieldBlocks[y].getPowerupDrop() == 'p')
+						{
+							addPowerup(vb);
+						}
+
 						battlefieldBlocks.erase(battlefieldBlocks.begin() + y);
 						Explosion e(explosionTexture, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
 						battlefieldExplosions.push_back(e);
@@ -506,57 +609,53 @@ void BattleField::checkForExplosionExtinguish()
 void BattleField::checkForPlayerDeath()
 {
 
-	for(int i=0 ; i<battlefieldPlayers.size() ; i++)
+	for (int i = 0; i < battlefieldPlayers.size(); i++)
 	{
 
-		for(Explosion e:battlefieldExplosions)
+		for (Explosion e : battlefieldExplosions)
 		{
 			//Top Left Explosion
 			sf::Vector2f tle = e.getSprite().getPosition();
 
 			bool hit = false;
 
-			for(int x = 0 ; x<4 ; x++)
+			for (int x = 0; x < 4; x++)
 			{
 				//Top Left PlayerHitbox
 				sf::Vector2f tlp = battlefieldPlayers[i].getSprite().getPosition();
 
-				switch(x)
+				switch (x)
 				{
-					case 0:
-						tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x;
-						tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y;
+				case 0:
+					tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x;
+					tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y;
 					break;
-					case 1:
-						tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x + battlefieldPlayers[i].getHitbox().x;
-						tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y;
+				case 1:
+					tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x + battlefieldPlayers[i].getHitbox().x;
+					tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y;
 					break;
-					case 2:
-						tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x;
-						tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y + battlefieldPlayers[i].getHitbox().y;
+				case 2:
+					tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x;
+					tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y + battlefieldPlayers[i].getHitbox().y;
 					break;
-					case 3:
-						tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x + battlefieldPlayers[i].getHitbox().x;
-						tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y + battlefieldPlayers[i].getHitbox().y;
+				case 3:
+					tlp.x = tlp.x + battlefieldPlayers[i].getHitboxOffset().x + battlefieldPlayers[i].getHitbox().x;
+					tlp.y = tlp.y + battlefieldPlayers[i].getHitboxOffset().y + battlefieldPlayers[i].getHitbox().y;
 					break;
 				}
 
-				if(  (tle.y < tlp.y && tle.y+64 > tlp.y) && (tle.x < tlp.x && tle.x+64 > tlp.x)  )
+				if ((tle.y < tlp.y && tle.y + 64 > tlp.y) && (tle.x < tlp.x && tle.x + 64 > tlp.x))
 				{
-					std::cout << "player: " << i+1 << "died" << std::endl;
+					std::cout << "player: " << i + 1 << "died" << std::endl;
 					hit = true;
 					break;
 				}
-
 			}
 
-			if(hit)
+			if (hit)
 				break;
-
 		}
-
 	}
-
 }
 
 sf::Vector2f BattleField::getRasterPoint(sf::Vector2f v)
@@ -586,6 +685,11 @@ void BattleField::draw(sf::RenderWindow *window)
 	for (Bomb bomb : battlefieldBombs)
 	{
 		window->draw(bomb.getSprite());
+	}
+
+	for (Powerup powerup : battlefieldPowerups)
+	{
+		window->draw(powerup.getSprite());
 	}
 
 	for (Player player : battlefieldPlayers)

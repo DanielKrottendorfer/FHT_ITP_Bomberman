@@ -9,6 +9,9 @@ class BuildingBlock
 	private:
 		bool isDestructible; // for later ...
 
+		// defualt n...Nothing
+		char powerupDrop = 'n';
+
 	public:
 		static const int OBJECT_WIDTH_PX = 64;
 		static const int OBJECT_HEIGHT_PX = 64;
@@ -18,6 +21,9 @@ class BuildingBlock
 		virtual ~BuildingBlock ();
 
 		sf::Sprite getSprite() const; 
+
+		char getPowerupDrop();
+		void setPowerupDrop(char p);
 
 		bool getIsBuildingBlockDestructible ()
 		{

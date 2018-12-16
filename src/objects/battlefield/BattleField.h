@@ -4,6 +4,7 @@
 #include "../player/Player.h"
 #include "../bombs/Bomb.h"
 #include "../bombs/Explosion.h"
+#include "../powerups/Powerup.h"
 
 #ifndef SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_
 #define SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_
@@ -12,6 +13,7 @@ class BattleField
 {
 	private:
 		std::vector<BuildingBlock> battlefieldBlocks;
+		std::vector<Powerup> battlefieldPowerups;
 		std::vector<Bomb> battlefieldBombs;
 		std::vector<Explosion> battlefieldExplosions;
 
@@ -19,6 +21,7 @@ class BattleField
 		void createFrameBlocks ();
 		void createIndestructibleFieldBlocks ();
 		void generateDestructibleFieldBlocks ();
+		void distributePowerups();
 		bool isPositionAvailable (int, int);
 		bool checkRedCorners (int, int);
 		bool checkObjectCollision (std::string, sf::Vector2f, float, float);
@@ -27,6 +30,7 @@ class BattleField
 		bool checkCollision (std::string, float, float);
 		bool isXAxisCollision (float, float);
 		bool isYAxisCollision (float, float);
+
 
 		sf::Vector2f getRasterPoint(sf::Vector2f v);
 
@@ -49,11 +53,14 @@ class BattleField
 		sf::Texture bombTexture;
 		sf::Texture explosionTexture;
 
+		sf::Texture powerupTexture;
+
 	public:
 		static const int NUMBER_OF_HORIZONTAL_BLOCKS = 15;
 		static const int NUMBER_OF_VERTICAL_BLOCKS = 11;
 		static const int NUMBER_OF_BLOCKS_TO_DESTROY = 50;
 		static const int BLOCK_SIZE = 64;
+		static const int POWERUP_COUNT = 20;
 
 		std::vector<Player> battlefieldPlayers;
 
@@ -67,7 +74,9 @@ class BattleField
 		void checkForPlayerDeath();
 		void addBomb(sf::Vector2f v, int power);
 		void addExplosion(sf::Vector2f v, int power);
+		void addPowerup(sf::Vector2f vb);
 		void checkForExplosionExtinguish();
+		void collectPowerups();
 };
 
 #endif /* SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_ */
