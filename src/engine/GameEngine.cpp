@@ -21,6 +21,10 @@ void GameEngine::init()
 
 void GameEngine::gameLoop(){
 
+    sf::Clock clock;
+
+    float elapsedTime;
+    float interval = 1000 / UPS;
     
     sf::Event event;
     //int loopC = 0;
@@ -40,20 +44,21 @@ void GameEngine::gameLoop(){
             
         }
 
-        //std::cout << "input" << std::endl;
+        elapsedTime = clock.getElapsedTime().asMilliseconds();
+
         input();
-        //std::cout << "update" << std::endl;
         update();
-        //std::cout << "render" << std::endl;
         render();
-        //std::cout << "sleep" << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000/UPS));
+
+        while(elapsedTime <= interval)
+        {
+            elapsedTime = clock.getElapsedTime().asMilliseconds();
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        }
+        
+        clock.restart();
             
-        //std::cout << loopC << std::endl;
     }
-    
-
-
 }
 
 void GameEngine::input(){
