@@ -14,6 +14,6 @@ sfml-window-d-2.dll
 .cproject
 .settings/
 mingw64
-./a.exe
+a.exe
 .gitignore
 

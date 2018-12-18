@@ -2,28 +2,25 @@
 #include <string>
 #include "IGameLogic.h"
 
+class GameEngine
+{
 
-class GameEngine {
+  public:
+    void start();
+    void init();
+    ~GameEngine();
 
-    public:
-        
-        void start();
-        void init();
-        ~GameEngine();
+    GameEngine(sf::RenderWindow *menuWindow, IGameLogic *gameLogic);
 
-        GameEngine(sf::RenderWindow* menuWindow, IGameLogic* gameLogic);
+    const int UPS = 60;
 
-        
-        const int UPS = 60;
+  private:
+    void input();
+    void update();
+    void render();
 
-    private:
-        void input();
-        void update();
-        void render();
+    void gameLoop();
 
-        void gameLoop();
-
-        sf::RenderWindow* window;
-        IGameLogic* gameLogic;
-
+    sf::RenderWindow *window;
+    IGameLogic *gameLogic;
 };

@@ -8,23 +8,27 @@
 #include "objects/GameItem.h"
 #include "objects/battlefield/BattleField.h"
 #include "objects/blocks/BuildingBlock.h"
+#include "objects/info/Info.h"
 
-Bomberman::Bomberman ()
+Info gameInfos;
+
+Bomberman::Bomberman()
 {
 }
 
-void Bomberman::init ()
+void Bomberman::init()
 {
-	player = battlefield.battlefieldPlayers.at (0); // 0 only for movement prototype
+	player = battlefield.battlefieldPlayers.at(0); // 0 only for movement prototype
+	gameInfos.reset();
 }
 
-void Bomberman::input ()
+void Bomberman::input()
 {
 	// TODO Also needs to be updated for joystick
 	battlefield.procedeMove();
 }
 
-void Bomberman::update ()
+void Bomberman::update()
 {
 	battlefield.checkForExplosion();
 	battlefield.checkForExplosionSpread();
@@ -34,8 +38,9 @@ void Bomberman::update ()
 	battlefield.collectPowerups();
 }
 
-void Bomberman::render (sf::RenderWindow* window)
+void Bomberman::render(sf::RenderWindow *window)
 {
-	window->clear (sf::Color::Black);
-	battlefield.draw (window);
+	window->clear(sf::Color::Black);
+	battlefield.draw(window);
+	gameInfos.draw(window);
 }
