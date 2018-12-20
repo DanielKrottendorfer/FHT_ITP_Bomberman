@@ -24,6 +24,11 @@ class Player
 
 		void movePlayer (std::string, float, float);
 
+		void addBomb();
+		void decBomb();
+
+		int getBombC();
+
 		int bombPower = 2;
 
 		void incBombPower();
@@ -34,6 +39,8 @@ class Player
 		int downwalk = 0;
 		int rightwalk = 0;
 		int leftwalk = 0;
+
+		int bombs = 1;
 
 		sf::Vector2f hitbox = sf::Vector2f(40,40);
 		sf::Vector2f hitboxOffset = sf::Vector2f(12,12);

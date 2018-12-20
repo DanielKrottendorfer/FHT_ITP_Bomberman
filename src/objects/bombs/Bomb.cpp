@@ -5,11 +5,12 @@
 #include <string>
 
 
-Bomb::Bomb(sf::Texture& TEMP_Texture,float x,float y, int power)
+Bomb::Bomb(sf::Texture& TEMP_Texture,float x,float y, int power, Player &o)
 {
     sprite.setTexture(TEMP_Texture);
     sprite.setPosition(x,y);
     this->power = power;
+    owner = &o;
 }
 
 void Bomb::ignite()
@@ -31,6 +32,11 @@ bool Bomb::explodes()
 sf::Sprite Bomb::getSprite() const 
 {
     return sprite;
+}
+
+Player* Bomb::getOwner()
+{
+    return owner;
 }
 
 Bomb::~Bomb ()

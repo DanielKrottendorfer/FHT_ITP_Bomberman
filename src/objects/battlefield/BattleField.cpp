@@ -402,7 +402,7 @@ void BattleField::procedeMove()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		sf::Vector2f v = sf::Vector2f(playerPositionX, playerPositionY);
-		addBomb(v, battlefieldPlayers[0].bombPower);
+		addBomb(v, battlefieldPlayers[0].bombPower,&battlefieldPlayers[0]);
 	}
 
 	// Check is possible to go in some direction and move if yes
@@ -413,30 +413,33 @@ void BattleField::procedeMove()
 	}
 }
 
-void BattleField::addBomb(sf::Vector2f v, int power)
+void BattleField::addBomb(sf::Vector2f v, int power, Player *p)
 {
-
-	v.x += BLOCK_SIZE / 2;
-	v.y += BLOCK_SIZE / 2;
-
-	v = getRasterPoint(v);
-
-	sf::Vector2f vb;
-	float tolerance = 0.1;
-
-	for (Bomb b : battlefieldBombs)
+	if(p->getBombC()>0)
 	{
-		vb = b.getSprite().getPosition();
+		v.x += BLOCK_SIZE / 2;
+		v.y += BLOCK_SIZE / 2;
 
-		if (abs(v.x - vb.x) < tolerance && abs(v.y - vb.y) < tolerance)
-			return;
+		v = getRasterPoint(v);
+
+		sf::Vector2f vb;
+		float tolerance = 0.1;
+
+		for (Bomb b : battlefieldBombs)
+		{
+			vb = b.getSprite().getPosition();
+
+			if (abs(v.x - vb.x) < tolerance && abs(v.y - vb.y) < tolerance)
+				return;
+		}
+
+		Bomb b(bombTexture, v.x, v.y, power, *p);
+		p->decBomb();
+
+		b.ignite();
+
+		battlefieldBombs.push_back(b);
 	}
-
-	Bomb b(bombTexture, v.x, v.y, power);
-
-	b.ignite();
-
-	battlefieldBombs.push_back(b);
 }
 
 void BattleField::addExplosion(sf::Vector2f v, int power)
@@ -531,6 +534,7 @@ void BattleField::checkForExplosion()
 		{
 			sf::Vector2f v = battlefieldBombs[i].getSprite().getPosition();
 			addExplosion(v, battlefieldBombs[i].power);
+			battlefieldBombs[i].getOwner()->addBomb();
 			battlefieldBombs.erase(battlefieldBombs.begin() + i);
 		}
 	}

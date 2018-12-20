@@ -167,6 +167,21 @@ void Player::goRight(float playerPositionX, float playerPositionY)
 	}
 }
 
+void Player::addBomb()
+{
+	bombs++;
+}
+
+void Player::decBomb()
+{
+	bombs--;
+}
+
+int Player::getBombC()
+{
+	return bombs;
+}
+
 Player::~Player()
 {
 }
