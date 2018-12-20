@@ -52,6 +52,15 @@ class BattleField
 
 		sf::Texture bombTexture;
 		sf::Texture explosionTexture;
+			
+		sf::Texture explosionTextureCenter;
+		sf::Texture explosionTextureHorizontal;
+		sf::Texture explosionTextureVertical;
+		
+		sf::Texture explosionTextureLeft;
+		sf::Texture explosionTextureRight;
+		sf::Texture explosionTextureUp;
+		sf::Texture explosionTextureDown;
 
 		sf::Texture powerupTexture;
 

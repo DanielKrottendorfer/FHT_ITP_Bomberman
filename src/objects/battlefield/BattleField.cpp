@@ -49,7 +49,16 @@ void BattleField::createBattleField()
 	player1Texture.loadFromFile("res/Character/Char1_front.png");
 
 	bombTexture.loadFromFile("res/Bomb.png");
-	explosionTexture.loadFromFile("res/Explosion.png");
+	//explosionTexture.loadFromFile("res/Explosion.png");
+
+	explosionTextureCenter.loadFromFile("res/Bomb/fire_center.png");
+	explosionTextureHorizontal.loadFromFile("res/Bomb/fire_horizontal.png");
+	explosionTextureVertical.loadFromFile("res/Bomb/fire_vertical.png");
+
+	explosionTextureLeft.loadFromFile("res/Bomb/fire_left.png");
+	explosionTextureRight.loadFromFile("res/Bomb/fire_right.png");
+	explosionTextureUp.loadFromFile("res/Bomb/fire_up.png");
+	explosionTextureDown.loadFromFile("res/Bomb/fire_down.png");
 
 	powerupTexture.loadFromFile("res/Powerup/Power_Up_Flame1.png");
 
@@ -64,7 +73,7 @@ void BattleField::createBattleField()
 	for (BuildingBlock b : battlefieldBlocks)
 	{
 		sf::Vector2f v = b.getSprite().getPosition();
-		std::cout << "x: " << v.x << "; y: " << v.y << "; textaddress:" << b.getSprite().getTexture() << " " << b.getPowerupDrop()<< std::endl;
+		std::cout << "x: " << v.x << "; y: " << v.y << "; textaddress:" << b.getSprite().getTexture() << " " << b.getPowerupDrop() << std::endl;
 	}
 }
 
@@ -205,7 +214,6 @@ void BattleField::distributePowerups()
 				return;
 		}
 	}
-
 }
 
 bool BattleField::isPositionAvailable(int xPos, int yPos)
@@ -453,7 +461,7 @@ void BattleField::addExplosion(sf::Vector2f v, int power)
 			break;
 		}
 
-		Explosion e(explosionTexture, v.x, v.y, dir, power);
+		Explosion e(explosionTextureCenter, v.x, v.y, dir, power);
 
 		battlefieldExplosions.push_back(e);
 	}
@@ -471,7 +479,7 @@ void BattleField::collectPowerups()
 	for (int i = 0; i < battlefieldPlayers.size(); i++)
 	{
 
-		for (int y=0 ; y < battlefieldPowerups.size() ; y++)
+		for (int y = 0; y < battlefieldPowerups.size(); y++)
 		{
 			//Top Left Explosion
 			sf::Vector2f tle = battlefieldPowerups[y].getSprite().getPosition();
@@ -505,7 +513,7 @@ void BattleField::collectPowerups()
 				{
 					battlefieldPlayers[i].incBombPower();
 
-					battlefieldPowerups.erase(battlefieldPowerups.begin()+y);
+					battlefieldPowerups.erase(battlefieldPowerups.begin() + y);
 					return;
 				}
 			}
@@ -573,7 +581,23 @@ void BattleField::checkForExplosionSpread()
 						}
 
 						battlefieldBlocks.erase(battlefieldBlocks.begin() + y);
-						Explosion e(explosionTexture, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
+
+						Explosion e;
+						switch (battlefieldExplosions[i].getDirection())
+						{
+						case 'n':
+							e = Explosion(explosionTextureUp, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
+							break;
+						case 'e':
+							e = Explosion(explosionTextureRight, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
+							break;
+						case 's':
+							e = Explosion(explosionTextureDown, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
+							break;
+						case 'w':
+							e = Explosion(explosionTextureLeft, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
+							break;
+						}
 						battlefieldExplosions.push_back(e);
 						return;
 					}
@@ -583,7 +607,43 @@ void BattleField::checkForExplosionSpread()
 					}
 				}
 			}
-			Explosion e(explosionTexture, ve.x, ve.y, battlefieldExplosions[i].getDirection(), power - 1);
+			Explosion e;
+
+			if(power - 1 == 0)
+			{
+				switch (battlefieldExplosions[i].getDirection())
+				{
+				case 'n':
+					e = Explosion(explosionTextureUp, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
+					break;
+				case 'e':
+					e = Explosion(explosionTextureRight, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
+					break;
+				case 's':
+					e = Explosion(explosionTextureDown, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
+					break;
+				case 'w':
+					e = Explosion(explosionTextureLeft, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
+					break;
+				}
+			}else
+			{
+				switch (battlefieldExplosions[i].getDirection())
+				{
+				case 'n':
+					e = Explosion(explosionTextureVertical, ve.x, ve.y, battlefieldExplosions[i].getDirection(), power - 1);
+					break;
+				case 'e':
+					e = Explosion(explosionTextureHorizontal, ve.x, ve.y, battlefieldExplosions[i].getDirection(), power - 1);
+					break;
+				case 's':
+					e = Explosion(explosionTextureVertical, ve.x, ve.y, battlefieldExplosions[i].getDirection(), power - 1);
+					break;
+				case 'w':
+					e = Explosion(explosionTextureHorizontal, ve.x, ve.y, battlefieldExplosions[i].getDirection(), power - 1);
+					break;
+				}
+			}
 			battlefieldExplosions.push_back(e);
 		}
 	}

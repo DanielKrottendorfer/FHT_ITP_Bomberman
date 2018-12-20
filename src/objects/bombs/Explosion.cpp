@@ -13,6 +13,9 @@ Explosion::Explosion(sf::Texture &TEMP_Texture, float x, float y, char dir, int 
     direction = dir;
     power = p;
 }
+Explosion::Explosion()
+{
+}
 
 bool Explosion::doesExtinguish()
 {
