@@ -60,7 +60,12 @@ void BattleField::createBattleField()
 	explosionTextureUp.loadFromFile("res/Bomb/fire_up.png");
 	explosionTextureDown.loadFromFile("res/Bomb/fire_down.png");
 
-	powerupTexture.loadFromFile("res/Powerup/Power_Up_Flame1.png");
+	powerupTextureF1.loadFromFile("res/Powerup/Power_Up_Flame1.png");
+	powerupTextureF2.loadFromFile("res/Powerup/Power_Up_Flame2.png");
+	powerupTextureB1.loadFromFile("res/Powerup/Power_Up_bomb1.png");
+	powerupTextureB2.loadFromFile("res/Powerup/Power_Up_bomb2.png");
+	powerupTextureS1.loadFromFile("res/Powerup/Power_Up_Speed1.png");
+	powerupTextureS2.loadFromFile("res/Powerup/Power_Up_Speed2.png");
 
 	createFrameBlocks();
 	createIndestructibleFieldBlocks();
@@ -197,17 +202,39 @@ void BattleField::distributePowerups()
 		if (i == battlefieldBlocks.size())
 			i = 0;
 
-		if (battlefieldBlocks[i].getIsBuildingBlockDestructible() && battlefieldBlocks[i].getPowerupDrop() == 'n')
+		if (battlefieldBlocks[i].getIsBuildingBlockDestructible() && battlefieldBlocks[i].getPowerupDrop() == "n")
 		{
 
 			int random_variable = std::rand();
 
-			random_variable %= 4;
+			random_variable %= 12;
 
-			if (random_variable == 0)
+			switch (random_variable)
 			{
-				battlefieldBlocks[i].setPowerupDrop('p');
+			case 0:
+				battlefieldBlocks[i].setPowerupDrop("f1");
 				counter++;
+				break;
+			case 1:
+				battlefieldBlocks[i].setPowerupDrop("f2");
+				counter++;
+				break;
+			case 2:
+				battlefieldBlocks[i].setPowerupDrop("b1");
+				counter++;
+				break;
+			case 3:
+				battlefieldBlocks[i].setPowerupDrop("b2");
+				counter++;
+				break;
+			case 4:
+				battlefieldBlocks[i].setPowerupDrop("s1");
+				counter++;
+				break;
+			case 5:
+				battlefieldBlocks[i].setPowerupDrop("s2");
+				counter++;
+				break;
 			}
 
 			if (counter == POWERUP_COUNT)
@@ -402,7 +429,7 @@ void BattleField::procedeMove()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		sf::Vector2f v = sf::Vector2f(playerPositionX, playerPositionY);
-		addBomb(v, battlefieldPlayers[0].bombPower,&battlefieldPlayers[0]);
+		addBomb(v, battlefieldPlayers[0].bombPower, &battlefieldPlayers[0]);
 	}
 
 	// Check is possible to go in some direction and move if yes
@@ -415,7 +442,7 @@ void BattleField::procedeMove()
 
 void BattleField::addBomb(sf::Vector2f v, int power, Player *p)
 {
-	if(p->getBombC()>0)
+	if (p->getBombC() > 0)
 	{
 		v.x += BLOCK_SIZE / 2;
 		v.y += BLOCK_SIZE / 2;
@@ -470,9 +497,34 @@ void BattleField::addExplosion(sf::Vector2f v, int power)
 	}
 }
 
-void BattleField::addPowerup(sf::Vector2f v)
+void BattleField::addPowerup(sf::Vector2f v, std::string powerUp)
 {
-	Powerup p(powerupTexture, v.x, v.y, 'p');
+	Powerup p;
+
+	if (powerUp == "f1")
+	{
+		p = Powerup(powerupTextureF1, v.x, v.y, powerUp);
+	}
+	if (powerUp == "f2")
+	{
+		p = Powerup(powerupTextureF2, v.x, v.y, powerUp);
+	}
+	if (powerUp == "s1")
+	{
+		p = Powerup(powerupTextureS1, v.x, v.y, powerUp);
+	}
+	if (powerUp == "s2")
+	{
+		p = Powerup(powerupTextureS2, v.x, v.y, powerUp);
+	}
+	if (powerUp == "b1")
+	{
+		p = Powerup(powerupTextureB1, v.x, v.y, powerUp);
+	}
+	if (powerUp == "b2")
+	{
+		p = Powerup(powerupTextureB2, v.x, v.y, powerUp);
+	}
 	battlefieldPowerups.push_back(p);
 }
 
@@ -514,7 +566,33 @@ void BattleField::collectPowerups()
 
 				if ((tle.y < tlp.y && tle.y + 64 > tlp.y) && (tle.x < tlp.x && tle.x + 64 > tlp.x))
 				{
-					battlefieldPlayers[i].incBombPower();
+
+					std::string powerUp = battlefieldPowerups[y].getType();
+					if (powerUp == "f1")
+					{
+						battlefieldPlayers[i].incBombPower(2);
+					}
+					if (powerUp == "f2")
+					{
+						battlefieldPlayers[i].incBombPower(3);
+					}
+					if (powerUp == "s1")
+					{
+						battlefieldPlayers[i].addSpeed(2);
+					}
+					if (powerUp == "s2")
+					{
+						battlefieldPlayers[i].addSpeed(4);
+					}
+					if (powerUp == "b1")
+					{
+						battlefieldPlayers[i].addBomb();
+					}
+					if (powerUp == "b2")
+					{
+						battlefieldPlayers[i].addBomb();
+						battlefieldPlayers[i].addBomb();
+					}
 
 					battlefieldPowerups.erase(battlefieldPowerups.begin() + y);
 					return;
@@ -579,9 +657,9 @@ void BattleField::checkForExplosionSpread()
 					if (battlefieldBlocks[y].getIsBuildingBlockDestructible())
 					{
 
-						if (battlefieldBlocks[y].getPowerupDrop() == 'p')
+						if (battlefieldBlocks[y].getPowerupDrop() != "n")
 						{
-							addPowerup(vb);
+							addPowerup(vb, battlefieldBlocks[y].getPowerupDrop());
 						}
 
 						battlefieldBlocks.erase(battlefieldBlocks.begin() + y);
@@ -613,7 +691,7 @@ void BattleField::checkForExplosionSpread()
 			}
 			Explosion e;
 
-			if(power - 1 == 0)
+			if (power - 1 == 0)
 			{
 				switch (battlefieldExplosions[i].getDirection())
 				{
@@ -630,7 +708,8 @@ void BattleField::checkForExplosionSpread()
 					e = Explosion(explosionTextureLeft, ve.x, ve.y, battlefieldExplosions[i].getDirection(), 0);
 					break;
 				}
-			}else
+			}
+			else
 			{
 				switch (battlefieldExplosions[i].getDirection())
 				{

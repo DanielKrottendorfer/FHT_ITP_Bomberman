@@ -5,7 +5,7 @@
 #include <string>
 
 
-Powerup::Powerup(sf::Texture& TEMP_Texture,float x,float y, char t)
+Powerup::Powerup(sf::Texture& TEMP_Texture,float x,float y, std::string t)
 {
     sprite.setTexture(TEMP_Texture);
     sprite.setPosition(x,y);
@@ -13,9 +13,18 @@ Powerup::Powerup(sf::Texture& TEMP_Texture,float x,float y, char t)
     type = t;
 }
 
+Powerup::Powerup()
+{
+}
+
 sf::Sprite Powerup::getSprite() const 
 {
     return sprite;
+}
+
+std::string Powerup::getType()
+{
+    return type;
 }
 
 Powerup::~Powerup ()

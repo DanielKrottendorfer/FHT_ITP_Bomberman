@@ -31,7 +31,10 @@ class Player
 
 		int bombPower = 2;
 
-		void incBombPower();
+		void incBombPower(int i);
+
+		int getSpeed();
+		void addSpeed(int s);
 
 	private:
 		bool isKeyPressed = false;
@@ -41,6 +44,8 @@ class Player
 		int leftwalk = 0;
 
 		int bombs = 1;
+
+		int speed = 4;
 
 		sf::Vector2f hitbox = sf::Vector2f(40,40);
 		sf::Vector2f hitboxOffset = sf::Vector2f(12,12);
@@ -58,6 +63,7 @@ class Player
 		void goLeft (float, float);
 		void goDown (float, float);
 		void goRight (float, float);
+
 };
 
 #endif /* SRC_OBJECTS_PLAYER_PLAYER_H_ */

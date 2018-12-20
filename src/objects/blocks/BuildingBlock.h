@@ -10,7 +10,7 @@ class BuildingBlock
 		bool isDestructible; // for later ...
 
 		// defualt n...Nothing
-		char powerupDrop = 'n';
+		std::string powerupDrop = "n";
 
 	public:
 		static const int OBJECT_WIDTH_PX = 64;
@@ -22,8 +22,8 @@ class BuildingBlock
 
 		sf::Sprite getSprite() const; 
 
-		char getPowerupDrop();
-		void setPowerupDrop(char p);
+		std::string getPowerupDrop();
+		void setPowerupDrop(std::string p);
 
 		bool getIsBuildingBlockDestructible ()
 		{

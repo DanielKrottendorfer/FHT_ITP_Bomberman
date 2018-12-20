@@ -62,7 +62,12 @@ class BattleField
 		sf::Texture explosionTextureUp;
 		sf::Texture explosionTextureDown;
 
-		sf::Texture powerupTexture;
+		sf::Texture powerupTextureF1;
+		sf::Texture powerupTextureF2;
+		sf::Texture powerupTextureS1;
+		sf::Texture powerupTextureS2;
+		sf::Texture powerupTextureB1;
+		sf::Texture powerupTextureB2;
 
 	public:
 		static const int NUMBER_OF_HORIZONTAL_BLOCKS = 15;
@@ -83,7 +88,7 @@ class BattleField
 		void checkForPlayerDeath();
 		void addBomb(sf::Vector2f v, int power ,Player *p);
 		void addExplosion(sf::Vector2f v, int power);
-		void addPowerup(sf::Vector2f vb);
+		void addPowerup(sf::Vector2f vb, std::string  poweerUp);
 		void checkForExplosionExtinguish();
 		void collectPowerups();
 };

@@ -32,12 +32,12 @@ sf::Sprite BuildingBlock::getSprite() const
     return sprite;
 }
 
-char BuildingBlock::getPowerupDrop()
+std::string BuildingBlock::getPowerupDrop()
 {
 	return powerupDrop;
 }
 
-void BuildingBlock::setPowerupDrop(char p)
+void BuildingBlock::setPowerupDrop(std::string p)
 {
 	powerupDrop = p;
 }

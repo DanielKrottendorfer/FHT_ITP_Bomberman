@@ -70,14 +70,14 @@ sf::Vector2f Player::getHitboxOffset()
 	return hitboxOffset;
 }
 
-void Player::incBombPower()
+void Player::incBombPower(int i)
 {
-	bombPower*=2;
+	bombPower+=i;
 }
 
 void Player::goUp(float playerPositionX, float playerPositionY)
 {
-	sprite.setPosition(round(playerPositionX / 64) * 64, playerPositionY - 4);
+	sprite.setPosition(round(playerPositionX / 64) * 64, playerPositionY - speed);
 	if (upwalk < 9)
 	{
 		sprite.setTexture(player1TextureBehind);
@@ -100,7 +100,7 @@ void Player::goUp(float playerPositionX, float playerPositionY)
 
 void Player::goLeft(float playerPositionX, float playerPositionY)
 {
-	sprite.setPosition(playerPositionX - 4, round(playerPositionY / 64) * 64);
+	sprite.setPosition(playerPositionX - speed, round(playerPositionY / 64) * 64);
 	if (leftwalk < 9)
 	{
 		sprite.setTexture(player1TextureLeft);
@@ -123,7 +123,7 @@ void Player::goLeft(float playerPositionX, float playerPositionY)
 
 void Player::goDown(float playerPositionX, float playerPositionY)
 {
-	sprite.setPosition(round(playerPositionX / 64) * 64, playerPositionY + 4);
+	sprite.setPosition(round(playerPositionX / 64) * 64, playerPositionY + speed);
 	if (downwalk < 9)
 	{
 		sprite.setTexture(player1TextureFront);
@@ -146,7 +146,7 @@ void Player::goDown(float playerPositionX, float playerPositionY)
 
 void Player::goRight(float playerPositionX, float playerPositionY)
 {
-	sprite.setPosition(playerPositionX + 4, round(playerPositionY / 64) * 64);
+	sprite.setPosition(playerPositionX + speed, round(playerPositionY / 64) * 64);
 	if (rightwalk < 9)
 	{
 		sprite.setTexture(player1TextureRight);
@@ -184,4 +184,14 @@ int Player::getBombC()
 
 Player::~Player()
 {
+}
+
+
+int Player::getSpeed()
+{
+
+}
+void Player::addSpeed(int s)
+{
+	speed+=s;
 }
