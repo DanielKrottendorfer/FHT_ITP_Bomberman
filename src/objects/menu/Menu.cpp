@@ -7,14 +7,6 @@ Menu::Menu(float width, float height)
         std::cout << "Error loading font" << std::endl;
     }
 
-    // title.setFont(font);
-    // title.setCharacterSize(96);
-    // title.setFillColor(sf::Color::White);
-    // title.setString("Bomberman++");
-    // sf::FloatRect textRectTitle = title.getLocalBounds();
-    // title.setOrigin(textRectTitle.left + textRectTitle.width/2.0f,
-    // textRectTitle.top  + textRectTitle.height/2.0f);
-    // title.setPosition(sf::Vector2f(width/2.0f,height/2.0f - (32+2*96) ));
     menuBackgroundTexture.loadFromFile("res/MenuBackground.png");
     menuBackgroundSprite.setTexture(menuBackgroundTexture);
 
@@ -82,6 +74,22 @@ void Menu::draw(sf::RenderWindow &window)
     {
         window.draw(menu[i]);
     }
+
+    if (isPopupCreated)
+    {
+        window.draw(popupNewGame->drawFrame());
+        window.draw(popupNewGame->drawDialogTitle());
+        sf::RectangleShape *buttons = popupNewGame->drawButtons();
+        for (int i = 0; i < 5; i++)
+        {
+            window.draw(buttons[i]);
+        }
+        sf::Text *buttonsText = popupNewGame->drawButtonsText();
+        for (int i = 0; i < 5; i++)
+        {
+            window.draw(buttonsText[i]);
+        }
+    }
 }
 
 void Menu::moveUp()
@@ -104,6 +112,77 @@ void Menu::moveDown()
     }
 }
 
+void Menu::startGame(sf::RenderWindow *menuWindow)
+{
+    if (false)
+    {
+        sf::Vector2f position;
+        sf::Vector2f size;
+        size.x = 350;
+        size.y = 450;
+        position.x = menuWindow->getSize().x / 2 - size.x / 2;
+        position.y = menuWindow->getSize().y / 2 - size.y / 2;
+        popupNewGame = new Dialog(size, position);
+        isPopupCreated = true;
+    }
+    else
+    {
+        std::cout << "Play button pressed" << std::endl;
+        std::cout << "gameLogic" << std::endl;
+        battleMusic();
+        IGameLogic *gameLogic = new Bomberman();
+        std::cout << "gameEngine" << std::endl;
+        GameEngine *gameEng = new GameEngine(menuWindow, gameLogic);
+        std::cout << "start" << std::endl;
+        gameEng->start();
+        std::cout << "end" << std::endl;
+    }
+}
+
+void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
+{
+    switch (event.type)
+    {
+    case sf::Event::KeyReleased:
+        switch (event.key.code)
+        {
+        case sf::Keyboard::Up:
+            moveUp();
+            break;
+
+        case sf::Keyboard::Down:
+            moveDown();
+            break;
+
+        case sf::Keyboard::Enter:
+            switch (getPressedItem())
+            {
+            case 0: // Play
+            {
+                //menuMusic();
+                startGame(menuWindow);
+                break;
+            }
+            case 1: // Options
+                std::cout << "Option button pressed" << std::endl;
+                break;
+
+            case 2: // End
+                menuWindow->close();
+                break;
+            }
+            break;
+        }
+        break;
+
+    case sf::Event::Closed:
+        menuWindow->close();
+        break;
+    }
+}
+
 Menu::~Menu()
 {
+    delete popupNewGame;
+    popupNewGame = NULL;
 }

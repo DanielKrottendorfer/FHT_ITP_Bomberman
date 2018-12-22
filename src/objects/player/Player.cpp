@@ -193,5 +193,13 @@ int Player::getSpeed()
 }
 void Player::addSpeed(int s)
 {
-	speed+=s;
+	int tempSpeed = speed + s;
+	if (tempSpeed >= 8)
+	{
+		speed = 8;
+	}
+	else
+	{
+		speed+=s;
+	}
 }

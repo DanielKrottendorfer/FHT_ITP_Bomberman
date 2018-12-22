@@ -578,7 +578,8 @@ void BattleField::collectPowerups()
 					}
 					if (powerUp == "s1")
 					{
-						battlefieldPlayers[i].addSpeed(2);
+						// TODO STEFAN - 6 cannot be speed also
+						battlefieldPlayers[i].addSpeed(4);
 					}
 					if (powerUp == "s2")
 					{
