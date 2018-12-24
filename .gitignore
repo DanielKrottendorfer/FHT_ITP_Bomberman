@@ -17,3 +17,4 @@ mingw64
 a.exe
 .gitignore
 
+.vscode/launch.json

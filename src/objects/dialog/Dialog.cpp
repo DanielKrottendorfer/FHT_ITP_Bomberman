@@ -30,27 +30,37 @@ void Dialog::createButtons(sf::Vector2f size, sf::Vector2f position)
 	dialogButtons[0].setSize(sf::Vector2f(size.x - 50, 50));
 	dialogButtons[0].setPosition(startPosition);
 	dialogButtons[0].setFillColor(bgColor);
+	dialogButtons[0].setOutlineColor(sf::Color::Red);
+	dialogButtons[0].setOutlineThickness(3);
 
 	dialogButtons[1].setSize(sf::Vector2f(size.x - 50, 50));
 	startPosition.y += 75;
 	dialogButtons[1].setPosition(startPosition);
 	dialogButtons[1].setFillColor(bgColor);
+	dialogButtons[1].setOutlineColor(sf::Color::Black);
+	dialogButtons[1].setOutlineThickness(3);
 
 	dialogButtons[2].setSize(sf::Vector2f(size.x - 50, 50));
 	startPosition.y += 75;
 	dialogButtons[2].setPosition(startPosition);
 	dialogButtons[2].setFillColor(bgColor);
+	dialogButtons[2].setOutlineColor(sf::Color::Black);
+	dialogButtons[2].setOutlineThickness(3);
 
 	dialogButtons[3].setSize(sf::Vector2f(size.x - 50, 50));
 	startPosition.y += 75;
 	dialogButtons[3].setPosition(startPosition);
 	dialogButtons[3].setFillColor(bgColor);
+	dialogButtons[3].setOutlineColor(sf::Color::Black);
+	dialogButtons[3].setOutlineThickness(3);
 
 	dialogButtons[4].setSize(sf::Vector2f(size.x - size.x / 2 - 50, 50));
 	startPosition.y += 75;
 	startPosition.x += size.x - size.x / 2;
 	dialogButtons[4].setPosition(startPosition);
 	dialogButtons[4].setFillColor(bgColor);
+	dialogButtons[4].setOutlineColor(sf::Color::Black);
+	dialogButtons[4].setOutlineThickness(3);
 }
 
 void Dialog::createTitle(sf::Vector2f size, sf::Vector2f position)
@@ -132,6 +142,26 @@ sf::Text Dialog::drawDialogTitle()
 sf::Text *Dialog::drawButtonsText()
 {
 	return buttonsText;
+}
+
+void Dialog::moveUp()
+{
+	if (selectedItemIndex - 1 >= 0)
+	{
+		dialogButtons[selectedItemIndex].setOutlineColor(sf::Color::Black);
+		selectedItemIndex--;
+		dialogButtons[selectedItemIndex].setOutlineColor(sf::Color::Red);
+	}
+}
+
+void Dialog::moveDown()
+{
+	if (selectedItemIndex + 1 < POPUP_DIALOG_BUTTONS_NUM)
+	{
+		dialogButtons[selectedItemIndex].setOutlineColor(sf::Color::Black);
+		selectedItemIndex++;
+		dialogButtons[selectedItemIndex].setOutlineColor(sf::Color::Red);
+	}
 }
 
 Dialog::~Dialog()

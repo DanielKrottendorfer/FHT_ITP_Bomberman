@@ -80,12 +80,12 @@ void Menu::draw(sf::RenderWindow &window)
         window.draw(popupNewGame->drawFrame());
         window.draw(popupNewGame->drawDialogTitle());
         sf::RectangleShape *buttons = popupNewGame->drawButtons();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < popupNewGame->POPUP_DIALOG_BUTTONS_NUM; i++)
         {
             window.draw(buttons[i]);
         }
         sf::Text *buttonsText = popupNewGame->drawButtonsText();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < popupNewGame->POPUP_DIALOG_BUTTONS_NUM; i++)
         {
             window.draw(buttonsText[i]);
         }
@@ -112,20 +112,19 @@ void Menu::moveDown()
     }
 }
 
-void Menu::startGame(sf::RenderWindow *menuWindow)
+void Menu::startGame(sf::RenderWindow *menuWindow, int numberOfPlayers)
 {
-    if (false)
+    if (!isPopupCreated && numberOfPlayers == -1)
     {
-        sf::Vector2f position;
         sf::Vector2f size;
         size.x = 350;
         size.y = 450;
-        position.x = menuWindow->getSize().x / 2 - size.x / 2;
-        position.y = menuWindow->getSize().y / 2 - size.y / 2;
-        popupNewGame = new Dialog(size, position);
+        popupNewGame = new Dialog(size, sf::Vector2f(menuWindow->getSize().x / 2 - size.x / 2,
+                                                     menuWindow->getSize().y / 2 - size.y / 2));
         isPopupCreated = true;
+        hasMenuFocus = false;
     }
-    else
+    else if (!isPopupCreated && numberOfPlayers >= 0)
     {
         std::cout << "Play button pressed" << std::endl;
         std::cout << "gameLogic" << std::endl;
@@ -147,20 +146,80 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
         switch (event.key.code)
         {
         case sf::Keyboard::Up:
-            moveUp();
+            if (hasMenuFocus)
+            {
+                moveUp();
+            }
+            else
+            {
+                popupNewGame->moveUp();
+            }
             break;
-
         case sf::Keyboard::Down:
-            moveDown();
+            if (hasMenuFocus)
+            {
+                moveDown();
+            }
+            else
+            {
+                popupNewGame->moveDown();
+            }
             break;
-
         case sf::Keyboard::Enter:
             switch (getPressedItem())
             {
             case 0: // Play
             {
-                //menuMusic();
-                startGame(menuWindow);
+                menuMusic();
+                if (isPopupCreated)
+                {
+                    switch (popupNewGame->getSelectedIndex())
+                    {
+                    case 0: // one player game
+                    {
+                        delete popupNewGame;
+                        isPopupCreated = false;
+                        hasMenuFocus = true;
+                        startGame(menuWindow, 0);
+                        break;
+                    }
+                    case 1: // two players game
+                    {
+                        delete popupNewGame;
+                        isPopupCreated = false;
+                        hasMenuFocus = true;
+                        startGame(menuWindow, 1);
+                        break;
+                    }
+                    case 2: // three players game
+                    {
+                        delete popupNewGame;
+                        isPopupCreated = false;
+                        hasMenuFocus = true;
+                        startGame(menuWindow, 2);
+                        break;
+                    }
+                    case 3: // four players game
+                    {
+                        delete popupNewGame;
+                        isPopupCreated = false;
+                        hasMenuFocus = true;
+                        startGame(menuWindow, 3);
+                        break;
+                    }
+                    case 4: // close dialog
+                    {
+                        delete popupNewGame;
+                        isPopupCreated = false;
+                        hasMenuFocus = true;
+                        break;
+                    }
+                    }
+                }
+                else
+                {
+                    startGame(menuWindow, -1);
+                }
                 break;
             }
             case 1: // Options
@@ -174,7 +233,6 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
             break;
         }
         break;
-
     case sf::Event::Closed:
         menuWindow->close();
         break;
@@ -183,6 +241,4 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
 
 Menu::~Menu()
 {
-    delete popupNewGame;
-    popupNewGame = NULL;
 }

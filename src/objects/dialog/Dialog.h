@@ -10,16 +10,23 @@
 
 class Dialog
 {
-  public:
+public:
 	Dialog(sf::Vector2f, sf::Vector2f);
 	virtual ~Dialog();
+
+	int const POPUP_DIALOG_BUTTONS_NUM = POPUP_DIALOG_BUTTONS_NUMBER;
+	int selectedItemIndex = 0;
 
 	sf::RectangleShape drawFrame();
 	sf::RectangleShape *drawButtons();
 	sf::Text drawDialogTitle();
 	sf::Text *drawButtonsText();
 
-  private:
+	void moveUp();
+	void moveDown();
+	int getSelectedIndex() { return selectedItemIndex; }
+
+private:
 	sf::Font font;
 	sf::RectangleShape dialogFrame;
 	sf::RectangleShape dialogButtons[POPUP_DIALOG_BUTTONS_NUMBER];
