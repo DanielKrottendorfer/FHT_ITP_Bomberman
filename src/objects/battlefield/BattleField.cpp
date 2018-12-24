@@ -3,8 +3,9 @@
 #include <random>
 #include "BattleField.h"
 
-BattleField::BattleField()
+BattleField::BattleField(int numberOfPlayers)
 {
+	this->numberOfPlayers = numberOfPlayers;
 	createBattleField();
 }
 
@@ -47,6 +48,9 @@ void BattleField::createBattleField()
 	idBlockTexture.loadFromFile("res/BackgroundItems/indestructibleBlocks.png");
 
 	player1Texture.loadFromFile("res/Character/Char1_front.png");
+	player2Texture.loadFromFile("res/Character/Char2/Char2_front.png");
+	player3Texture.loadFromFile("res/Character/Char3/Char3_front.png");
+	player4Texture.loadFromFile("res/Character/Char4/Char4_front.png");
 
 	bombTexture.loadFromFile("res/Bomb.png");
 	//explosionTexture.loadFromFile("res/Explosion.png");
@@ -72,7 +76,7 @@ void BattleField::createBattleField()
 	generateDestructibleFieldBlocks();
 	distributePowerups();
 
-	generatePlayer(); // temp function initialisation
+	generatePlayers(); // temp function initialisation
 
 	int count = 0;
 	for (BuildingBlock b : battlefieldBlocks)
@@ -301,10 +305,41 @@ bool BattleField::checkRedCorners(int xPos, int yPos)
 	return true;
 }
 
-void BattleField::generatePlayer()
+void BattleField::generatePlayers()
 {
-	Player player(player1Texture, BLOCK_SIZE, BLOCK_SIZE);
-	battlefieldPlayers.push_back(player);
+	for (int i = 1; i <= numberOfPlayers; i++)
+	{
+		switch (i)
+		{
+		case 1:
+		{
+			Player player1(player1Texture, BLOCK_SIZE, BLOCK_SIZE);
+			battlefieldPlayers.push_back(player1);
+			break;
+		}
+		case 2:
+		{
+			Player player2(player2Texture, (NUMBER_OF_HORIZONTAL_BLOCKS - 2) * BLOCK_SIZE,
+						   BLOCK_SIZE);
+			battlefieldPlayers.push_back(player2);
+			break;
+		}
+		case 3:
+		{
+			Player player3(player3Texture, BLOCK_SIZE,
+						   (NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE);
+			battlefieldPlayers.push_back(player3);
+			break;
+		}
+		case 4:
+		{
+			Player player4(player4Texture, (NUMBER_OF_HORIZONTAL_BLOCKS - 2) * BLOCK_SIZE,
+						   (NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE);
+			battlefieldPlayers.push_back(player4);
+			break;
+		}
+		}
+	}
 }
 
 bool BattleField::isXAxisCollision(float blockPosX, float playerPosX)
@@ -401,8 +436,8 @@ bool BattleField::checkCollision(std::string movingDirection, float playerPositi
 
 void BattleField::procedeMove()
 {
-	float playerPositionX = battlefieldPlayers[0].getSprite().getPosition().x;
-	float playerPositionY = battlefieldPlayers[0].getSprite().getPosition().y;
+	float playerPositionX = battlefieldPlayers.at(0).getSprite().getPosition().x;
+	float playerPositionY = battlefieldPlayers.at(0).getSprite().getPosition().y;
 
 	std::string movingDirection = "";
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))

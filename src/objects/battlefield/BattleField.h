@@ -31,7 +31,6 @@ class BattleField
 		bool isXAxisCollision (float, float);
 		bool isYAxisCollision (float, float);
 
-
 		sf::Vector2f getRasterPoint(sf::Vector2f v);
 
 
@@ -49,6 +48,9 @@ class BattleField
 		sf::Texture idBlockTexture;
 
 		sf::Texture player1Texture;
+		sf::Texture player2Texture;
+		sf::Texture player3Texture;
+		sf::Texture player4Texture;
 
 		sf::Texture bombTexture;
 		sf::Texture explosionTexture;
@@ -76,12 +78,14 @@ class BattleField
 		static const int BLOCK_SIZE = 64;
 		static const int POWERUP_COUNT = 20;
 
+		int numberOfPlayers;
+
 		std::vector<Player> battlefieldPlayers;
 
-		BattleField ();
+		BattleField (int);
 		virtual ~BattleField ();
 		void draw (sf::RenderWindow* window);
-		void generatePlayer ();
+		void generatePlayers ();
 		void procedeMove ();
 		void checkForExplosion();
 		void checkForExplosionSpread();

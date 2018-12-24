@@ -9,17 +9,18 @@
 class Bomberman : public IGameLogic
 {
 
-  public:
-    Bomberman();
-    void init();
-    void input();
-    void update();
-    void render(sf::RenderWindow *window);
+public:
+  Bomberman(int numberOfPlayers);
+  void init();
+  void input();
+  void update();
+  void render(sf::RenderWindow *window);
 
-  private:
-    BattleField battlefield;
-    Player player;
-    std::vector<GameItem> backGroundItems;
-    std::vector<sf::Texture> backGroundTextures;
-    std::vector<GameItem> gameItems;
+private:
+  int numberOfPlayers;
+  BattleField *battlefield;
+  Player player;
+  std::vector<GameItem> backGroundItems;
+  std::vector<sf::Texture> backGroundTextures;
+  std::vector<GameItem> gameItems;
 };

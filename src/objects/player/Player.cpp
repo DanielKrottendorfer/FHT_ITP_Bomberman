@@ -72,7 +72,7 @@ sf::Vector2f Player::getHitboxOffset()
 
 void Player::incBombPower(int i)
 {
-	bombPower+=i;
+	bombPower += i;
 }
 
 void Player::goUp(float playerPositionX, float playerPositionY)
@@ -186,10 +186,8 @@ Player::~Player()
 {
 }
 
-
 int Player::getSpeed()
 {
-
 }
 void Player::addSpeed(int s)
 {
@@ -200,6 +198,6 @@ void Player::addSpeed(int s)
 	}
 	else
 	{
-		speed+=s;
+		speed += s;
 	}
 }

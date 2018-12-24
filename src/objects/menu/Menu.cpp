@@ -124,12 +124,12 @@ void Menu::startGame(sf::RenderWindow *menuWindow, int numberOfPlayers)
         isPopupCreated = true;
         hasMenuFocus = false;
     }
-    else if (!isPopupCreated && numberOfPlayers >= 0)
+    else if (!isPopupCreated && numberOfPlayers > 0)
     {
         std::cout << "Play button pressed" << std::endl;
         std::cout << "gameLogic" << std::endl;
         battleMusic();
-        IGameLogic *gameLogic = new Bomberman();
+        IGameLogic *gameLogic = new Bomberman(numberOfPlayers);
         std::cout << "gameEngine" << std::endl;
         GameEngine *gameEng = new GameEngine(menuWindow, gameLogic);
         std::cout << "start" << std::endl;
@@ -180,7 +180,7 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
                         delete popupNewGame;
                         isPopupCreated = false;
                         hasMenuFocus = true;
-                        startGame(menuWindow, 0);
+                        startGame(menuWindow, 1);
                         break;
                     }
                     case 1: // two players game
@@ -188,7 +188,7 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
                         delete popupNewGame;
                         isPopupCreated = false;
                         hasMenuFocus = true;
-                        startGame(menuWindow, 1);
+                        startGame(menuWindow, 2);
                         break;
                     }
                     case 2: // three players game
@@ -196,7 +196,7 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
                         delete popupNewGame;
                         isPopupCreated = false;
                         hasMenuFocus = true;
-                        startGame(menuWindow, 2);
+                        startGame(menuWindow, 3);
                         break;
                     }
                     case 3: // four players game
@@ -204,7 +204,7 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
                         delete popupNewGame;
                         isPopupCreated = false;
                         hasMenuFocus = true;
-                        startGame(menuWindow, 3);
+                        startGame(menuWindow, 4);
                         break;
                     }
                     case 4: // close dialog

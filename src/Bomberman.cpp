@@ -12,35 +12,37 @@
 
 Info gameInfos;
 
-Bomberman::Bomberman()
+Bomberman::Bomberman(int numberOfPlayers)
 {
+	this->numberOfPlayers = numberOfPlayers;
 }
 
 void Bomberman::init()
 {
-	player = battlefield.battlefieldPlayers.at(0); // 0 only for movement prototype
+	battlefield = new BattleField(numberOfPlayers);
+	//player = battlefield->battlefieldPlayers.at(0); // 0 only for movement prototype
 	gameInfos.reset();
 }
 
 void Bomberman::input()
 {
 	// TODO Also needs to be updated for joystick
-	battlefield.procedeMove();
+	battlefield->procedeMove();
 }
 
 void Bomberman::update()
 {
-	battlefield.checkForExplosion();
-	battlefield.checkForExplosionSpread();
-	battlefield.checkForExplosionExtinguish();
-	battlefield.checkForPlayerDeath();
+	battlefield->checkForExplosion();
+	battlefield->checkForExplosionSpread();
+	battlefield->checkForExplosionExtinguish();
+	battlefield->checkForPlayerDeath();
 
-	battlefield.collectPowerups();
+	battlefield->collectPowerups();
 }
 
 void Bomberman::render(sf::RenderWindow *window)
 {
 	window->clear(sf::Color::Black);
-	battlefield.draw(window);
+	battlefield->draw(window);
 	gameInfos.draw(window);
 }
