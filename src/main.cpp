@@ -6,8 +6,8 @@ int main()
     menuWindow = new sf::RenderWindow(sf::VideoMode(1280, 704), "Bomberman++");
     Menu menu(menuWindow->getSize().x, menuWindow->getSize().y);
 
-    // menu.setMusic();
-    // menu.menuMusic();
+    menu.setMusic();
+    menu.menuMusic();
 
     while (menuWindow->isOpen())
     {

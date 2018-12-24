@@ -135,6 +135,7 @@ void Menu::startGame(sf::RenderWindow *menuWindow, int numberOfPlayers)
         std::cout << "start" << std::endl;
         gameEng->start();
         std::cout << "end" << std::endl;
+        menuMusic();
     }
 }
 
@@ -170,7 +171,6 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
             {
             case 0: // Play
             {
-                menuMusic();
                 if (isPopupCreated)
                 {
                     switch (popupNewGame->getSelectedIndex())
