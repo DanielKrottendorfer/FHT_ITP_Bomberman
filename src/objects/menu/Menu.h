@@ -5,7 +5,8 @@
 
 #include "..\..\engine\GameEngine.h"
 #include "..\..\Bomberman.h"
-#include "..\dialog\Dialog.h"
+#include "dialog\Dialog.h"
+#include "Options.h"
 
 #define MAX_NUMBER_OF_ITEMS 3
 
@@ -34,6 +35,7 @@ private:
   sf::Texture menuBackgroundTexture;
   sf::Sprite menuBackgroundSprite;
   Dialog *popupNewGame;
+  Options *menuOption;
   bool isPopupCreated = false;
   bool hasMenuFocus = true;
 

@@ -3,8 +3,8 @@
 #include <iostream>
 #include <string>
 
-#ifndef SRC_OBJECTS_DIALOG_DIALOG_H_
-#define SRC_OBJECTS_DIALOG_DIALOG_H_
+#ifndef SRC_OBJECTS_MENU_DIALOG_DIALOG_H_
+#define SRC_OBJECTS_MENU_DIALOG_DIALOG_H_
 
 #define POPUP_DIALOG_BUTTONS_NUMBER 5
 

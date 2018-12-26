@@ -224,8 +224,8 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
             }
             case 1: // Options
                 std::cout << "Option button pressed" << std::endl;
+                menuOption = new Options (menuWindow);
                 break;
-
             case 2: // End
                 menuWindow->close();
                 break;
