@@ -7,8 +7,9 @@
 #include "..\..\Bomberman.h"
 #include "dialog\Dialog.h"
 #include "Options.h"
+#include "Help.h"
 
-#define MAX_NUMBER_OF_ITEMS 3
+#define MAX_NUMBER_OF_ITEMS 4
 
 class Menu
 {
@@ -36,6 +37,7 @@ private:
   sf::Sprite menuBackgroundSprite;
   Dialog *popupNewGame;
   Options *menuOption;
+  Help *menuHelp;
   bool isPopupCreated = false;
   bool hasMenuFocus = true;
 

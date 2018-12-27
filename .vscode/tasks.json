@@ -20,6 +20,7 @@
                 "./src/objects/bombs/Explosion.cpp",
                 "./src/objects/menu/Menu.cpp",
                 "./src/objects/menu/Options.cpp",
+                "./src/objects/menu/Help.cpp",
                 "./src/objects/menu/dialog/Dialog.cpp",
                 "./src/objects/powerups/Powerup.cpp",
                 "./src/objects/info/Info.cpp",

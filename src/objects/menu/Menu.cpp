@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Help.h"
 
 Menu::Menu(float width, float height)
 {
@@ -35,13 +36,24 @@ Menu::Menu(float width, float height)
     menu[2].setFont(font);
     menu[2].setCharacterSize(64);
     menu[2].setFillColor(sf::Color::White);
-    menu[2].setString("Exit");
+    menu[2].setString("Help");
     sf::FloatRect textRect2 = menu[2].getLocalBounds();
     menu[2].setOrigin(textRect2.left + textRect2.width / 2.0f,
                       textRect2.top + textRect2.height / 2.0f);
     menu[2].setPosition(sf::Vector2f(width / 2.0f, height / 2.0f + 128));
     menu[2].setOutlineColor(sf::Color::Black);
     menu[2].setOutlineThickness(2.0);
+
+    menu[3].setFont(font);
+    menu[3].setCharacterSize(64);
+    menu[3].setFillColor(sf::Color::White);
+    menu[3].setString("Exit");
+    sf::FloatRect textRect3 = menu[3].getLocalBounds();
+    menu[3].setOrigin(textRect3.left + textRect3.width / 2.0f,
+                      textRect3.top + textRect3.height / 2.0f);
+    menu[3].setPosition(sf::Vector2f(width / 2.0f, height / 2.0f + 224));
+    menu[3].setOutlineColor(sf::Color::Black);
+    menu[3].setOutlineThickness(2.0);
 
     selectedItemIndex = 0;
 }
@@ -224,9 +236,13 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
             }
             case 1: // Options
                 std::cout << "Option button pressed" << std::endl;
-                menuOption = new Options (menuWindow);
+                menuOption = new Options(menuWindow);
                 break;
-            case 2: // End
+            case 2: // Help
+                std::cout << "Help button pressed" << std::endl;
+                menuHelp = new Help(menuWindow);
+                break;
+            case 3: // Close
                 menuWindow->close();
                 break;
             }
