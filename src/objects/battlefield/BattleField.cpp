@@ -72,6 +72,7 @@ void BattleField::createBattleField()
 	powerupTextureS2.loadFromFile("res/Powerup/Power_Up_Speed2.png");
 
 	createFrameBlocks();
+	setSound();
 	createIndestructibleFieldBlocks();
 	generateDestructibleFieldBlocks();
 	distributePowerups();
@@ -630,12 +631,24 @@ void BattleField::collectPowerups()
 						battlefieldPlayers[i].addBomb();
 					}
 
+					soundPowerup.play();
 					battlefieldPowerups.erase(battlefieldPowerups.begin() + y);
 					return;
 				}
 			}
 		}
 	}
+}
+
+void BattleField::setSound()
+{
+    soundDeathBuffer.loadFromFile("res\\sound\\Death.wav");
+    soundPowerupBuffer.loadFromFile("res\\sound\\Powerup.wav");
+    soundExplosionBuffer.loadFromFile("res\\sound\\Explosion.wav");
+
+    soundDeath.setBuffer(soundDeathBuffer);
+    soundPowerup.setBuffer(soundPowerupBuffer);
+    soundExplosion.setBuffer(soundExplosionBuffer);
 }
 
 void BattleField::checkForExplosion()
@@ -650,6 +663,7 @@ void BattleField::checkForExplosion()
 			addExplosion(v, battlefieldBombs[i].power);
 			battlefieldBombs[i].getOwner()->addBomb();
 			battlefieldBombs.erase(battlefieldBombs.begin() + i);
+			soundExplosion.play();
 		}
 	}
 }
@@ -816,6 +830,7 @@ void BattleField::checkForPlayerDeath()
 
 				if ((tle.y < tlp.y && tle.y + 64 > tlp.y) && (tle.x < tlp.x && tle.x + 64 > tlp.x))
 				{
+					soundDeath.play();
 					std::cout << "player: " << i + 1 << "died" << std::endl;
 					hit = true;
 					break;

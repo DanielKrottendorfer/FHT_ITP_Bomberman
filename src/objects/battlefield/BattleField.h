@@ -1,5 +1,6 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "../blocks/BuildingBlock.h"
 #include "../player/Player.h"
 #include "../bombs/Bomb.h"
@@ -95,6 +96,16 @@ class BattleField
 		void addPowerup(sf::Vector2f vb, std::string  poweerUp);
 		void checkForExplosionExtinguish();
 		void collectPowerups();
+				    
+    	void setSound();
+    	void playDeathSound();
+    	sf::SoundBuffer soundDeathBuffer;
+    	sf::SoundBuffer soundPowerupBuffer;
+    	sf::SoundBuffer soundExplosionBuffer;
+
+    	sf::Sound soundDeath;
+    	sf::Sound soundPowerup;
+    	sf::Sound soundExplosion;
 };
 
 #endif /* SRC_OBJECTS_BATTLEFIELD_BATTLEFIELD_H_ */
