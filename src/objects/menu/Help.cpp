@@ -3,7 +3,7 @@
 Help::Help(sf::RenderWindow *window)
 {
     helpWindow = window;
-    helpBackgroundTexture.loadFromFile("res/OptionsBackground.png");
+    helpBackgroundTexture.loadFromFile("res/HelpBackground.png");
     helpBackgroundSprite.setTexture(helpBackgroundTexture);
     displayHelp();
 }
