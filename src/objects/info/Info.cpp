@@ -41,7 +41,7 @@ void Info::draw(sf::RenderWindow *window)
   // rounding
   seconds = ((int)(seconds * 100 + .5) / 100.0);
 
-  if (seconds > 59)
+  if (seconds > 59.99)
   {
     mins++;
     clock.restart();
