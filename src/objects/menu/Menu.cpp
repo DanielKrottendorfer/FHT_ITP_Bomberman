@@ -236,7 +236,12 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
             }
             case 1: // Options
                 std::cout << "Option button pressed" << std::endl;
-                menuOption = new Options(menuWindow);
+                menuOption = new Options(menuWindow, menMusic.getVolume(), battlMusic.getVolume());
+                if (menuOption->isSaved == true)
+                {
+                    menMusic.setVolume(menuOption->getMenuSoundLevel());
+                    battlMusic.setVolume(menuOption->getBattlefieldSoundLevel());
+                }
                 break;
             case 2: // Help
                 std::cout << "Help button pressed" << std::endl;
