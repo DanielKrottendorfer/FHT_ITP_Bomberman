@@ -8,5 +8,6 @@ class IGameLogic {
         virtual void input() = 0;
         virtual void update() = 0;
         virtual void render(sf::RenderWindow* window) = 0;
+        bool running = true;
 };
 #endif

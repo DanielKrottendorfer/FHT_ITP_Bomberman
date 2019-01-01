@@ -12,7 +12,7 @@ class Player
 
 	Player();
 	Player(std::string texurePath, int x, int y);
-	Player(sf::Texture &texture, int x, int y);
+	Player(sf::Texture &texture, int x, int y, int num);
 	virtual ~Player();
 
 	sf::Sprite sprite;

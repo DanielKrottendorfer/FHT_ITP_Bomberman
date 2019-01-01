@@ -6,6 +6,7 @@
 BattleField::BattleField(int numberOfPlayers)
 {
 	this->numberOfPlayers = numberOfPlayers;
+	this->playersAtStart = numberOfPlayers;
 	createBattleField();
 }
 
@@ -314,28 +315,28 @@ void BattleField::generatePlayers()
 		{
 		case 1:
 		{
-			Player player1(player1Texture, BLOCK_SIZE, BLOCK_SIZE);
+			Player player1(player1Texture, BLOCK_SIZE, BLOCK_SIZE,1);
 			battlefieldPlayers.push_back(player1);
 			break;
 		}
 		case 2:
 		{
 			Player player2(player2Texture, (NUMBER_OF_HORIZONTAL_BLOCKS - 2) * BLOCK_SIZE,
-						   BLOCK_SIZE);
+						   BLOCK_SIZE,2);
 			battlefieldPlayers.push_back(player2);
 			break;
 		}
 		case 3:
 		{
 			Player player3(player3Texture, BLOCK_SIZE,
-						   (NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE);
+						   (NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE,3);
 			battlefieldPlayers.push_back(player3);
 			break;
 		}
 		case 4:
 		{
 			Player player4(player4Texture, (NUMBER_OF_HORIZONTAL_BLOCKS - 2) * BLOCK_SIZE,
-						   (NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE);
+						   (NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE,4);
 			battlefieldPlayers.push_back(player4);
 			break;
 		}
@@ -473,6 +474,126 @@ void BattleField::procedeMove()
 	{
 		//std::cout << playerPositionX << " " << playerPositionY << std::endl;
 		battlefieldPlayers[0].movePlayer(movingDirection, playerPositionX, playerPositionY);
+	}
+	if (playersAtStart > 1)
+	{
+		playerPositionX = battlefieldPlayers.at(1).getSprite().getPosition().x;
+		playerPositionY = battlefieldPlayers.at(1).getSprite().getPosition().y;
+
+		std::string movingDirection = "";
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+		{
+			movingDirection = "up";
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::H))
+		{
+			movingDirection = "left";
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::J))
+		{
+			movingDirection = "down";
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+		{
+			movingDirection = "right";
+		}
+		else
+		{
+			battlefieldPlayers[1].sprite.setTexture(player2Texture);
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
+		{
+			sf::Vector2f v = sf::Vector2f(playerPositionX, playerPositionY);
+			addBomb(v, battlefieldPlayers[1].bombPower, &battlefieldPlayers[1]);
+		}
+
+		// Check is possible to go in some direction and move if yes
+		if (this->checkCollision(movingDirection, playerPositionX, playerPositionY) == true)
+		{
+			//std::cout << playerPositionX << " " << playerPositionY << std::endl;
+			battlefieldPlayers[1].movePlayer(movingDirection, playerPositionX, playerPositionY);
+		}
+		if (playersAtStart > 2)
+		{
+			playerPositionX = battlefieldPlayers.at(2).getSprite().getPosition().x;
+			playerPositionY = battlefieldPlayers.at(2).getSprite().getPosition().y;
+
+			std::string movingDirection = "";
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			{
+				movingDirection = "up";
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				movingDirection = "left";
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			{
+				movingDirection = "down";
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				movingDirection = "right";
+			}
+			else
+			{
+				battlefieldPlayers[2].sprite.setTexture(player3Texture);
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
+			{
+				sf::Vector2f v = sf::Vector2f(playerPositionX, playerPositionY);
+				addBomb(v, battlefieldPlayers[2].bombPower, &battlefieldPlayers[2]);
+			}
+
+			// Check is possible to go in some direction and move if yes
+			if (this->checkCollision(movingDirection, playerPositionX, playerPositionY) == true)
+			{
+				//std::cout << playerPositionX << " " << playerPositionY << std::endl;
+				battlefieldPlayers[2].movePlayer(movingDirection, playerPositionX, playerPositionY);
+			}
+			if (playersAtStart > 3)
+			{
+				playerPositionX = battlefieldPlayers.at(3).getSprite().getPosition().x;
+				playerPositionY = battlefieldPlayers.at(3).getSprite().getPosition().y;
+
+				std::string movingDirection = "";
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8))
+				{
+					movingDirection = "up";
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
+				{
+					movingDirection = "left";
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5))
+				{
+					movingDirection = "down";
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6))
+				{
+					movingDirection = "right";
+				}
+				else
+				{
+					battlefieldPlayers[3].sprite.setTexture(player4Texture);
+				}
+
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0))
+				{
+					sf::Vector2f v = sf::Vector2f(playerPositionX, playerPositionY);
+					addBomb(v, battlefieldPlayers[3].bombPower, &battlefieldPlayers[3]);
+				}
+
+				// Check is possible to go in some direction and move if yes
+				if (this->checkCollision(movingDirection, playerPositionX, playerPositionY) == true)
+				{
+					//std::cout << playerPositionX << " " << playerPositionY << std::endl;
+					battlefieldPlayers[3].movePlayer(movingDirection, playerPositionX, playerPositionY);
+				}
+			}
+		}
 	}
 }
 
@@ -642,13 +763,13 @@ void BattleField::collectPowerups()
 
 void BattleField::setSound()
 {
-    soundDeathBuffer.loadFromFile("res\\sound\\Death.wav");
-    soundPowerupBuffer.loadFromFile("res\\sound\\Powerup.wav");
-    soundExplosionBuffer.loadFromFile("res\\sound\\Explosion.wav");
+	soundDeathBuffer.loadFromFile("res\\sound\\Death.wav");
+	soundPowerupBuffer.loadFromFile("res\\sound\\Powerup.wav");
+	soundExplosionBuffer.loadFromFile("res\\sound\\Explosion.wav");
 
-    soundDeath.setBuffer(soundDeathBuffer);
-    soundPowerup.setBuffer(soundPowerupBuffer);
-    soundExplosion.setBuffer(soundExplosionBuffer);
+	soundDeath.setBuffer(soundDeathBuffer);
+	soundPowerup.setBuffer(soundPowerupBuffer);
+	soundExplosion.setBuffer(soundExplosionBuffer);
 }
 
 void BattleField::checkForExplosion()
@@ -800,9 +921,6 @@ void BattleField::checkForPlayerDeath()
 		{
 			//Top Left Explosion
 			sf::Vector2f tle = e.getSprite().getPosition();
-
-			bool hit = false;
-
 			for (int x = 0; x < 4; x++)
 			{
 				//Top Left PlayerHitbox
@@ -831,14 +949,11 @@ void BattleField::checkForPlayerDeath()
 				if ((tle.y < tlp.y && tle.y + 64 > tlp.y) && (tle.x < tlp.x && tle.x + 64 > tlp.x))
 				{
 					soundDeath.play();
-					std::cout << "player: " << i + 1 << "died" << std::endl;
-					hit = true;
-					break;
+					battlefieldPlayers[i].movePlayer("up", -100, -100);
+					numberOfPlayers--;
+					return;
 				}
 			}
-
-			if (hit)
-				break;
 		}
 	}
 }

@@ -38,6 +38,10 @@ void Bomberman::update()
 	battlefield->checkForPlayerDeath();
 
 	battlefield->collectPowerups();
+
+	if(battlefield->numberOfPlayers==1)		
+		running=false;
+
 }
 
 void Bomberman::render(sf::RenderWindow *window)

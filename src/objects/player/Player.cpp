@@ -20,19 +20,54 @@ Player::Player(std::string texturePath, int x, int y)
 	sprite.setTexture(texture);
 }
 
-Player::Player(sf::Texture &texture, int x, int y)
+Player::Player(sf::Texture &texture, int x, int y, int num)
 {
 	sprite.setTexture(texture);
 	sprite.setPosition(x, y);
 
-	player1TextureBehind.loadFromFile("res/Character/Char1_behind_walk_right.png");
-	player1TextureBehindWalk.loadFromFile("res/Character/Char1_behind_walk_left.png");
-	player1TextureLeft.loadFromFile("res/Character/Char1_left_walk.png");
-	player1TextureLeftWalk.loadFromFile("res/Character/Char1_left.png");
-	player1TextureFront.loadFromFile("res/Character/Char1_front_walk-right.png");
-	player1TextureFrontWalk.loadFromFile("res/Character/Char1_front_walk-left.png");
-	player1TextureRight.loadFromFile("res/Character/Char1_right_walk.png");
-	player1TextureRightWalk.loadFromFile("res/Character/Char1_right.png");
+	switch(num)
+	{
+		case 1:
+			player1TextureBehind.loadFromFile("res/Character/Char1_behind_walk_right.png");
+			player1TextureBehindWalk.loadFromFile("res/Character/Char1_behind_walk_left.png");
+			player1TextureLeft.loadFromFile("res/Character/Char1_left_walk.png");
+			player1TextureLeftWalk.loadFromFile("res/Character/Char1_left.png");
+			player1TextureFront.loadFromFile("res/Character/Char1_front_walk-right.png");
+			player1TextureFrontWalk.loadFromFile("res/Character/Char1_front_walk-left.png");
+			player1TextureRight.loadFromFile("res/Character/Char1_right_walk.png");
+			player1TextureRightWalk.loadFromFile("res/Character/Char1_right.png");	
+			break;	
+		case 2:
+			player1TextureBehindWalk.loadFromFile("res/Character/Char2/Char1_behind_walk_left.png");
+			player1TextureBehind.loadFromFile("res/Character/Char2/Char1_behind_walk_right.png");
+			player1TextureFrontWalk.loadFromFile("res/Character/Char2/Char1_front_walk-left.png");
+			player1TextureFront.loadFromFile("res/Character/Char2/Char1_front_walk-right.png");
+			player1TextureLeft.loadFromFile("res/Character/Char2/Char1_left_walk.png");
+			player1TextureRight.loadFromFile("res/Character/Char2/Char1_right_walk.png");
+			player1TextureLeftWalk.loadFromFile("res/Character/Char2/Char2_left.png");	
+			player1TextureRightWalk.loadFromFile("res/Character/Char2/Char2_right.png");
+			break;	
+		case 3:
+			player1TextureBehindWalk.loadFromFile("res/Character/Char3/Char1_behind_walk_left.png");
+			player1TextureBehind.loadFromFile("res/Character/Char3/Char1_behind_walk_right.png");
+			player1TextureFrontWalk.loadFromFile("res/Character/Char3/Char1_front_walk-left.png");
+			player1TextureFront.loadFromFile("res/Character/Char3/Char1_front_walk-right.png");
+			player1TextureLeft.loadFromFile("res/Character/Char3/Char1_left_walk.png");
+			player1TextureRight.loadFromFile("res/Character/Char3/Char1_right_walk.png");
+			player1TextureLeftWalk.loadFromFile("res/Character/Char3/Char3_left.png");	
+			player1TextureRightWalk.loadFromFile("res/Character/Char3/Char3_right.png");	
+			break;	
+		case 4:
+			player1TextureBehindWalk.loadFromFile("res/Character/Char4/Char1_behind_walk_left.png");
+			player1TextureBehind.loadFromFile("res/Character/Char4/Char1_behind_walk_right.png");
+			player1TextureFrontWalk.loadFromFile("res/Character/Char4/Char1_front_walk-left.png");
+			player1TextureFront.loadFromFile("res/Character/Char4/Char1_front_walk-right.png");
+			player1TextureLeft.loadFromFile("res/Character/Char4/Char1_left_walk.png");
+			player1TextureRight.loadFromFile("res/Character/Char4/Char1_right_walk.png");
+			player1TextureLeftWalk.loadFromFile("res/Character/Char4/Char4_left.png");	
+			player1TextureRightWalk.loadFromFile("res/Character/Char4/Char4_right.png");	
+			break;	
+	}
 }
 
 sf::Sprite Player::getSprite()

@@ -80,6 +80,7 @@ class BattleField
 		static const int POWERUP_COUNT = 20;
 
 		int numberOfPlayers;
+		int playersAtStart;
 
 		std::vector<Player> battlefieldPlayers;
 
