@@ -19,7 +19,7 @@ Info::Info()
   gameInfos[1].setFont(font);
   gameInfos[1].setCharacterSize(32);
   gameInfos[1].setFillColor(sf::Color::White);
-  gameInfos[1].setString("Players Alive:   1");
+  gameInfos[1].setString("Players Alive:  ");
   gameInfos[1].setPosition(980, 120);
 
   gameInfos[2].setFont(font);
@@ -56,7 +56,7 @@ void Info::draw(sf::RenderWindow *window)
   minss << mins;
   std::string minsss(minss.str());
 
-  //std::cout << elapsedTime << std::endl;
+  gameInfos[1].setString("Players Alive: "+std::to_string(*numberOfPlayers));
   gameInfos[2].setString(minsss + " min " + sss + " sec");
 
   for (int i = 0; i < 3; i++)
@@ -68,4 +68,9 @@ void Info::draw(sf::RenderWindow *window)
 void Info::reset()
 {
   clock.restart();
+}
+
+void Info::setNumberOfPlayers(int* p)
+{
+  this->numberOfPlayers = p;
 }

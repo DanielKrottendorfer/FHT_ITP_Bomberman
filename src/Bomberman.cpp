@@ -21,6 +21,7 @@ void Bomberman::init()
 {
 	battlefield = new BattleField(numberOfPlayers);
 	//player = battlefield->battlefieldPlayers.at(0); // 0 only for movement prototype
+	gameInfos.setNumberOfPlayers(&battlefield->numberOfPlayers);
 	gameInfos.reset();
 }
 
