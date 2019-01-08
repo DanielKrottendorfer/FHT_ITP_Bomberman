@@ -130,7 +130,7 @@ void Menu::startGame(sf::RenderWindow *menuWindow, int numberOfPlayers)
     {
         sf::Vector2f size;
         size.x = 350;
-        size.y = 450;
+        size.y = 375;
         popupNewGame = new Dialog(size, sf::Vector2f(menuWindow->getSize().x / 2 - size.x / 2,
                                                      menuWindow->getSize().y / 2 - size.y / 2));
         isPopupCreated = true;
@@ -187,15 +187,7 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
                 {
                     switch (popupNewGame->getSelectedIndex())
                     {
-                    case 0: // one player game
-                    {
-                        delete popupNewGame;
-                        isPopupCreated = false;
-                        hasMenuFocus = true;
-                        startGame(menuWindow, 1);
-                        break;
-                    }
-                    case 1: // two players game
+                    case 0: // two players game
                     {
                         delete popupNewGame;
                         isPopupCreated = false;
@@ -203,7 +195,7 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
                         startGame(menuWindow, 2);
                         break;
                     }
-                    case 2: // three players game
+                    case 1: // three players game
                     {
                         delete popupNewGame;
                         isPopupCreated = false;
@@ -211,7 +203,7 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
                         startGame(menuWindow, 3);
                         break;
                     }
-                    case 3: // four players game
+                    case 2: // four players game
                     {
                         delete popupNewGame;
                         isPopupCreated = false;
@@ -219,7 +211,7 @@ void Menu::handleEventListener(sf::Event event, sf::RenderWindow *menuWindow)
                         startGame(menuWindow, 4);
                         break;
                     }
-                    case 4: // close dialog
+                    case 3: // close dialog
                     {
                         delete popupNewGame;
                         isPopupCreated = false;
