@@ -8,7 +8,8 @@
 
 // Updates per second
 
-GameEngine::GameEngine(sf::RenderWindow* menuWindow, IGameLogic* gameLogic){
+GameEngine::GameEngine(sf::RenderWindow *menuWindow, IGameLogic *gameLogic)
+{
     //window = new sf::RenderWindow(sf::VideoMode(width, height), windowTitle);
     window = menuWindow;
     this->gameLogic = gameLogic;
@@ -19,13 +20,13 @@ void GameEngine::init()
     gameLogic->init();
 }
 
-void GameEngine::gameLoop(){
-
+void GameEngine::gameLoop()
+{
     sf::Clock clock;
 
     float elapsedTime;
     float interval = 1000 / UPS;
-    
+
     sf::Event event;
     //int loopC = 0;
     while (window->isOpen())
@@ -34,16 +35,19 @@ void GameEngine::gameLoop(){
         while (window->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
                 window->close();
+            }
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                //window->close();
-                //std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
                 return; // -> main.cpp
+            }
 
-            if(!gameLogic->running)
+            if (!gameLogic->running && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            {
                 return;
-            
+            }
         }
 
         elapsedTime = clock.getElapsedTime().asMilliseconds();
@@ -52,40 +56,42 @@ void GameEngine::gameLoop(){
         update();
         render();
 
-        while(elapsedTime <= interval)
+        while (elapsedTime <= interval)
         {
             elapsedTime = clock.getElapsedTime().asMilliseconds();
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
-        
+
         clock.restart();
-            
     }
 }
 
-void GameEngine::input(){
+void GameEngine::input()
+{
     gameLogic->input();
 }
 
-void GameEngine::update(){
+void GameEngine::update()
+{
     gameLogic->update();
 }
 
-
-void GameEngine::start(){
+void GameEngine::start()
+{
     std::cout << "gameEngine Init" << std::endl;
     init();
     std::cout << "gameEngine GameLoop" << std::endl;
     gameLoop();
 }
 
-void GameEngine::render(){
+void GameEngine::render()
+{
     gameLogic->render(window);
     window->display();
 }
 
-
-GameEngine::~GameEngine(){
+GameEngine::~GameEngine()
+{
     delete gameLogic;
     delete window;
 }

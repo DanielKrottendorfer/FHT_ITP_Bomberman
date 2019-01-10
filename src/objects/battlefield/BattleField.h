@@ -34,7 +34,6 @@ class BattleField
 
 		sf::Vector2f getRasterPoint(sf::Vector2f v);
 
-
 		sf::Texture tSideTexture;
 		sf::Texture rSideTexture;
 		sf::Texture lSideTexture;

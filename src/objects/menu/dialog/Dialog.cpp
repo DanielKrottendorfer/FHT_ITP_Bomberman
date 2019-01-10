@@ -14,6 +14,30 @@ Dialog::Dialog(sf::Vector2f size, sf::Vector2f position)
 	std::cout << "Created new dialog" << std::endl;
 }
 
+/**
+ *	Dialog for end game (phase before return to main menu) 
+ */
+Dialog::Dialog(sf::Vector2f position)
+{
+	if (!font.loadFromFile("res/fonts/reem.ttf"))
+	{
+		std::cout << "Error loading font" << std::endl;
+	}
+	createFrame(sf::Vector2f(370, 140), position);
+
+	endGameDialog.setFont(font);
+	endGameDialog.setString("\t\t\t\t\t\tGame over!\nPress SPACE for Main Menu");
+	endGameDialog.setFillColor(sf::Color::White);
+	endGameDialog.setCharacterSize(28);
+	sf::FloatRect textRect1 = endGameDialog.getLocalBounds();
+	endGameDialog.setOrigin(textRect1.left + textRect1.width / 2.0f,
+							 textRect1.top + textRect1.height / 2.0f);
+	endGameDialog.setPosition(position.x + 370 / 2, position.y + 70);
+
+	isOnceCreated = true;
+	std::cout << "Created new dialog" << std::endl;
+}
+
 void Dialog::createFrame(sf::Vector2f size, sf::Vector2f position)
 {
 	dialogFrame.setSize(size);

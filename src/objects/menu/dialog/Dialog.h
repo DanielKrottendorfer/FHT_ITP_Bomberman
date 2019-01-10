@@ -12,15 +12,20 @@ class Dialog
 {
 public:
 	Dialog(sf::Vector2f, sf::Vector2f);
+	Dialog(sf::Vector2f);
 	virtual ~Dialog();
 
 	int const POPUP_DIALOG_BUTTONS_NUM = POPUP_DIALOG_BUTTONS_NUMBER;
 	int selectedItemIndex = 0;
 
+	bool isOnceCreated = false;
+
 	sf::RectangleShape drawFrame();
 	sf::RectangleShape *drawButtons();
 	sf::Text drawDialogTitle();
 	sf::Text *drawButtonsText();
+
+	sf::Text endGameDialog;
 
 	void moveUp();
 	void moveDown();

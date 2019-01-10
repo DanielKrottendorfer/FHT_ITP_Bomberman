@@ -315,28 +315,28 @@ void BattleField::generatePlayers()
 		{
 		case 1:
 		{
-			Player player1(player1Texture, BLOCK_SIZE, BLOCK_SIZE,1);
+			Player player1(player1Texture, BLOCK_SIZE, BLOCK_SIZE, 1);
 			battlefieldPlayers.push_back(player1);
 			break;
 		}
 		case 2:
 		{
 			Player player2(player2Texture, (NUMBER_OF_HORIZONTAL_BLOCKS - 2) * BLOCK_SIZE,
-						   BLOCK_SIZE,2);
+						   BLOCK_SIZE, 2);
 			battlefieldPlayers.push_back(player2);
 			break;
 		}
 		case 3:
 		{
 			Player player3(player3Texture, BLOCK_SIZE,
-						   (NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE,3);
+						   (NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE, 3);
 			battlefieldPlayers.push_back(player3);
 			break;
 		}
 		case 4:
 		{
 			Player player4(player4Texture, (NUMBER_OF_HORIZONTAL_BLOCKS - 2) * BLOCK_SIZE,
-						   (NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE,4);
+						   (NUMBER_OF_VERTICAL_BLOCKS - 2) * BLOCK_SIZE, 4);
 			battlefieldPlayers.push_back(player4);
 			break;
 		}
